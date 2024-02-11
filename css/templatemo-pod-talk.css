@@ -247,6 +247,10 @@ main {
   color: var(--white-color);
 }
 
+.rating {
+  color: 543786;
+}
+
 
 /*---------------------------------------
   SITE HEADER              
@@ -1007,13 +1011,14 @@ main {
   SITE FOOTER              
 -----------------------------------------*/
 .site-footer {
-  background-image: url('../images/bannerbottom.png'), linear-gradient(#FFFFFF, #348CD2);
+  background-image: url(''), linear-gradient(#FFFFFF, #543786);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   margin-top: -80px;
   padding-top: 100px;
   padding-bottom: 150px;
+  
 }
 
 .site-footer > .container {
