@@ -236,6 +236,11 @@ main {
   color: var(--custom-btn-bg-color);
 }
 
+.custom-btn-signlogin {
+  background: var(--custom-btn-bg-color);
+  border: 2px solid var(--custom-btn-bg-color);
+  color: var(--primary-color);}
+
 .custom-border-btn:hover {
   background: var(--custom-btn-bg-color);
   border-color: transparent;
