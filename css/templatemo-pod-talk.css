@@ -252,6 +252,24 @@ main {
   color: var(--white-color);
 }
 
+.customaccept-btn{
+  background: green;
+  border:2px solid green;
+  }
+  .customreject-btn{
+  background: red;
+  border:2px solid red;}
+  
+  .custom-block-image2 {
+      margin: 20px;
+      margin-top: 10px;
+    border-radius: var(--border-radius-medium);
+    display: block;
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+  }
+
 .rating {
   color: 543786;
 }
