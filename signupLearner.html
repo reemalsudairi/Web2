@@ -114,22 +114,34 @@
                                             <label for="floatingInput">Location</label>
                                         </div>
 
-                                        <div class="form-floating">
+                                      <!-- <div class="form-floating">
                                             <input type="file" name="pic" id="location" class="form-control" placeholder="location">
                                             
-                                        </div>
+                                        </div>-->
 
-                                    
                                     </div>
 
-                                    
 
                                     <div class="col-lg-4 col-12 ms-auto">
                                         <button type="submit" class="form-control">Sign Up</button>
                                     </div>
 
+
+                                    <input type="file" id="upload-input" accept="image/*" hidden>
+                                    <label for="upload-input">
+                                      <div id="profile-pic-container">
+                                        <img id="profile-pic" src="images/profileSignup.png" alt="Profile Picture">
+                                        <div id="upload-icon">Click to Upload</div>
+                                      </div>
+                                    </label>
+
                                 </div>
                             </form>
+
+
+
+
+                           
 
 
                         </div>

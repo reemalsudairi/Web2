@@ -1259,3 +1259,30 @@ main {
 
 }
 
+/* profile signup */
+
+#profile-pic-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+#profile-pic {
+  width: 150px;
+  height: 150px;
+
+#upload-icon {
+  position: absolute;
+  bottom: -3%;
+  left: 56%;
+  transform: translate(-50%, -50%);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  font-size: 13px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+#profile-pic-container:hover #upload-icon {
+  opacity: 50;
+}
