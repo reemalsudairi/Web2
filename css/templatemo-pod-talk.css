@@ -261,7 +261,8 @@ main {
   SITE HEADER              
 -----------------------------------------*/
 .site-header {
-  background-image: url();
+  background-image: url("../images/background.jpg");
+  background-color: #FFFFFF;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
