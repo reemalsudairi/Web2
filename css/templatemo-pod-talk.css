@@ -1336,22 +1336,35 @@ main {
 }
 
 #profile-pic {
-  width: 150px;
-  height: 150px;
+  width: 140px;
+  height: 140px;
 }
 
 #upload-icon {
   position: absolute;
-  bottom: -3%;
+  bottom: -4%;
   left: 56%;
   transform: translate(-50%, -50%);
   color: rgb(255, 255, 255);
   font-weight: bold;
-  font-size: 13px;
+  font-size: 12px;
   opacity: 0;
   transition: opacity 0.3s;
 }
 
 #profile-pic-container:hover #upload-icon {
   opacity: 50;
+}
+#link1 {
+
+font-size: 15px;
+}
+
+#link2 {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+#link2:hover {
+ color: var(--link-hover-color);
 }
