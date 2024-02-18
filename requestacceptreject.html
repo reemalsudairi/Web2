@@ -37,10 +37,13 @@
 .customaccept-btn{
 background: green;
 border:2px solid green;
+margin-bottom:5px
 }
 .customreject-btn{
 background: red;
-border:2px solid red;}
+border:2px solid red;
+
+margin-bottom:5px}
 
 
 
@@ -55,16 +58,20 @@ border:2px solid red;}
 }
 
 .namebesideflag{
-    padding-top: 15px; 
+    padding-top: 8px; 
     font-weight:bolder;
 }
 
 .languagetext{
-    font-size:medium; 
+    font-size:small; 
     font-weight: bolder;
 }
 .accrejtag{
     font-size: small; font-weight: 700; color: white; border-radius: 5%;
+}
+.smallfont{
+
+    font-size:small;
 }
 
         </style>
@@ -201,11 +208,11 @@ border:2px solid red;}
                                         <div class="profile-block d-flex">
                                             <img src="images/kuwait.png" class="profile-block-image img-fluid" alt="">
     
-                                           <p> Ahmad</p>
+                                           <p class="namebesideflag"> Ahmad</p>
                                                
                                         </div>
                                         <p class="mb-0 languagetext">Language: Arabic</p>
-                                        <p class="mb-0" style="font-size:small;"> Date: 15/2/2024 <br> Time: 10:00pm <br> Proficiency: Intermediate</p>
+                                        <p class="mb-0 smallfont""> Date: 15/2/2024 <br> Time: 10:00pm <br> Proficiency: Intermediate</p>
     
                                     </div>
                                     
@@ -251,7 +258,7 @@ border:2px solid red;}
                                                 </p>
                                         </div>
                                        <p class="mb-0 languagetext"> Language: Arabic</p>
-                                        <p class="mb-0" style="font-size:small;">Date: 15/2/2024 <br> Time: 10:00pm <br> Proficiency: Beginner</p>
+                                        <p class="mb-0 smallfont">Date: 15/2/2024 <br> Time: 10:00pm <br> Proficiency: Beginner</p>
     
                                     </div>
                                     
@@ -294,11 +301,10 @@ border:2px solid red;}
                                         <div class="profile-block d-flex">
                                             <img src="images/china.png" class="profile-block-image img-fluid" alt="">
     
-                                            <p>Henry Cao
-                                                <strong>Chinese</strong></p>
+                                            <p class="namebesideflag">Henry Cao</p>
                                         </div>
-    
-                                        <p class="mb-0" style="font-size:small;">Date: 15/2/2024 <br> Time: 10:00pm <br> Proficiency: Intermediate</p>
+                                        <p class="mb-0 languagetext">Language: Chinese</p>
+                                        <p class="mb-0 smallfont">Date: 15/2/2024 <br> Time: 10:00pm <br> Proficiency: Intermediate</p>
     
                                     </div>
                                     
@@ -340,11 +346,10 @@ border:2px solid red;}
                                         <div class="profile-block d-flex">
                                             <img src="images/sirya.webp" class="profile-block-image img-fluid" alt="">
     
-                                            <p>Rana
-                                                <strong>English</strong></p>
+                                            <p class="namebesideflag">Rana</p>
                                         </div>
-    
-                                        <p class="mb-0" style="font-size:small;">Date: 15/2/2024 <br> Time: 10:00pm <br> Proficiency: Intermediate</p>
+                                        <p class="mb-0 languagetext">Language: English</p>
+                                        <p class="mb-0 smallfont">Date: 15/2/2024 <br> Time: 10:00pm <br> Proficiency: Intermediate</p>
     
                                     </div>
                                     
@@ -395,11 +400,10 @@ border:2px solid red;}
                                         <div class="profile-block d-flex">
                                             <img src="images/spain.png" class="profile-block-image img-fluid" alt="">
     
-                                            <p>Kevin
-                                                <strong>Spanish</strong></p>
+                                            <p class="namebesideflag">Kevin</p>
                                         </div>
-    
-                                        <p class="mb-0">Date: 22/2/2024 <br> Time: 10:00pm<br> Proficiency: Intermediate<br> status: <a class="customaccept-btn accrejtag">
+                                        <p class="mb-0 languagetext">Language: Chinese</p>
+                                        <p class="mb-0 smallfont">Date: 22/2/2024 <br> Time: 10:00pm<br> Proficiency: Intermediate<br> status: <a class="customaccept-btn accrejtag">
                                             Accepted
                                         </a></p>
     
@@ -441,11 +445,10 @@ border:2px solid red;}
                                         <div class="profile-block d-flex">
                                             <img src="images/uk.jpeg" class="profile-block-image img-fluid" alt="">
     
-                                            <p>Elsa
-                                                <strong>Spanish</strong></p>
+                                            <p class="namebesideflag">Elsa</p>
                                         </div>
-    
-                                        <p class="mb-0">Date: 22/2/2024 <br> Time: 10:00pm<br> Proficiency: Intermediate<br> status: <a class="customaccept-btn accrejtag">
+                                        <p class="mb-0 languagetext">Language: Spanish</p>
+                                        <p class="mb-0 smallfont">Date: 22/2/2024 <br> Time: 10:00pm<br> Proficiency: Intermediate<br> status: <a class="customaccept-btn accrejtag">
                                             Accepted
                                         </a></p>
     
@@ -467,13 +470,24 @@ border:2px solid red;}
                                     <div class="custom-block d-flex">
                                         <div class="">
                                             <div class="custom-block-icon-wrap">
-                                                <div class="section-overlay"></div>
+
+                                                <div class="custom-block-icon-wrap">
+                                                
+                                                    <div class="custom-block-icon-wrap">
+                                                
+                                                        <a class="custom-block-image-wrap">
+                                                            <!--img-fluid-->
+                                                            <img src="images/profilepic2.jpg" class="custom-block-image2  img-fluid" alt="">
+            
+                                                        </a>
+                                                    </div>
+                                                     
+                                                </div>
+                                               
                                                 
         
-                                                    <a href="#" class="custom-block-icon">
-                                                        <i class="bi-play-fill"></i>
-                                                    </a>
-                                                </a>
+                                                   
+                                               
                                             </div>
                                         </div>
         
@@ -489,11 +503,10 @@ border:2px solid red;}
                                             <div class="profile-block d-flex">
                                                 <img src="images/spain.png" class="profile-block-image img-fluid" alt="">
         
-                                                <p>Sarah
-                                                    <strong>Spanish</strong></p>
+                                                <p class="namebesideflag">Sarah</p>
                                             </div>
-        
-                                            <p class="mb-0">Date: 22/2/2024 <br> Time: 10:00pm<br> Proficiency: Intermediate<br> status: <a class="customreject-btn accrejtag">
+                                            <p class="mb-0 languagetext">Language: Spanish</p>
+                                            <p class="mb-0 smallfont">Date: 22/2/2024 <br> Time: 10:00pm<br> Proficiency: Intermediate<br> status: <a class="customreject-btn accrejtag">
                                                 Rejected
                                             </a></p>
         
@@ -512,7 +525,7 @@ border:2px solid red;}
                                             
                                                     <a class="custom-block-image-wrap">
                                                         <!--img-fluid-->
-                                                        <img src="images/Henry_Cao-Web.jpeg" class="custom-block-image2  img-fluid" alt="">
+                                                        <img src="images/profilepic2.jpg" class="custom-block-image2  img-fluid" alt="">
         
                                                     </a>
                                                 </div>
@@ -532,11 +545,10 @@ border:2px solid red;}
                                             <div class="profile-block d-flex">
                                                 <img src="images/saudi.png" class="profile-block-image img-fluid" alt="">
         
-                                                <p>Khalid
-                                                    <strong>Spanish</strong></p>
+                                                <p class="namebesideflag">Khalid</p>
                                             </div>
-        
-                                            <p class="mb-0">Date: 22/2/2024 <br> Time: 10:00pm<br> Proficiency: Beginner<br> status: <a class="customreject-btn accrejtag">
+                                            <p class="mb-0 languagetext">Language: Chinese</p>
+                                            <p class="mb-0 smallfont">Date: 22/2/2024 <br> Time: 10:00pm<br> Proficiency: Beginner<br> status: <a class="customreject-btn accrejtag">
                                                 Rejected
                                             </a></p>
         
@@ -557,26 +569,6 @@ border:2px solid red;}
                         </div>  
                         
                     </div>
-
-
-
-
-        </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             <!--footer-->
@@ -617,3 +609,23 @@ border:2px solid red;}
         </div>
     </div>
 </footer>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
