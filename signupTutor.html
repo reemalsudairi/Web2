@@ -43,6 +43,26 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-lg-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="LearnerHomepage.html">Home</a>
+                            </li> <!--لينك صفحة الهوم-->
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#about">About us</a>
+                            </li><!--لينك داخل الصفحة يودينا عن اباوت-->
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Contact</a>
+                                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="tel:0508197538">Call us</a></li>
+                                    <li><a class="dropdown-item" href="mailto:tutorverse@hotmail.com">Email us</a></li>
+                                </ul>
+                            </li><!--لينك كونتاكت-->
+                        </ul>
+                    </div>
+
                 </div>
             </nav>
 
@@ -64,113 +84,123 @@
             <section class="contact-section section-padding pt-0">
                 
                 <div class="container">
-                            <br><br><br><br>
+                            <br><br>
                             <div class="section-title-wrap mb-5">
-                                <h4 class="section-title">Sign up</h4>
+                                <h4 class="section-title">Create An Account</h4>
                             </div>
                         <div class="row">
                             <div class="col-lg-8 col-12 mx-auto">
+                               
+                                
 
-                            <form action="#" method="post" class="custom-form contact-form" role="form">
+                                <div class="custom-block custom-block-full">
+                                    <div class="custom-block-image-wrap">
+                                        <form action="#" method="post" class="custom-form contact-form" role="form">
 
-                                <input type="file" id="upload-input" accept="image/*" hidden>
-                                <label for="upload-input">
-                                <div id="profile-pic-container">
-                                <img id="profile-pic" src="images/profileSignup.png" alt="Profile Picture">
-                                <div id="upload-icon">Click to Upload</div>
-                                </div>
-                                </label>
-
-
-                                <div class="row">
-
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        
-                                        <div class="form-floating">
-                                            <input type="text" name="firstname" id="first-name" class="form-control" placeholder="First Name" required>
-                                            
-                                            <label for="floatingInput">First Name</label>
-                                        </div>
-
-
-                                        <div class="form-floating">
-                                            <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required>
-                                            
-                                            <label for="floatingInput">Email address</label>
-                                        </div>
-                                        
-
-                                        <div class="form-floating">
-                                            <input type="text" name="city" id="city" class="form-control" placeholder="city" required>
-                                            
-                                            <label for="floatingInput">City</label>
-                                        </div>
-
-
-
-                                        <div class="form-floating">
-                                            <input type="tel" name="phone" id="phone" class="form-control" placeholder="phone" required>
-                                            
-                                            <label for="floatingInput">Phone number</label>
-                                        </div>
-                    
-                    
-                                    </div>
-
-                                    <div class="col-lg-6 col-md-6 col-12"> 
-                                        <div class="form-floating">
-                                            <input type="text" name="lastname" id="last-name" class="form-control" placeholder="Last Name" required>
-                                            
-                                            <label for="floatingInput">Last Name</label>
-                                        </div>
-
-                                        <div class="form-floating">
-                                            <input type="password" name="password" id="password" class="form-control" placeholder="password" required>
-                                            
-                                            <label for="floatingInput">Password</label>
-                                        </div>
-
-                                        <div class="form-floating">
-                                            <input type="number" name="age" min="18" id="age" class="form-control" placeholder="age" required>
-                                            
-                                            <label for="floatingInput">Age</label>
-                            
-                                        </div>
-
-
-                                        <div class="form-floating">
-                                        <select id="gender" name="gender" class="form-control">
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                        <label for="floatingInput">Gender</label>
-                                    </div>
-                                    </div>
-
-                                    <div class="col-lg-12 col-12">
-                        
-                                        <div class="form-floating">
-                                            <textarea class="form-control" id="message" name="message" placeholder="Describe message here"></textarea>
-                                            
-                                            <label for="floatingTextarea">Tell us more about yourself!</label>
-                                        </div>
-                                    </div>
-
-
-
-
-
-
-                                    <div class="col-lg-4 col-12 ms-auto">
-                                        <button type="submit" class="form-control">Sign Up</button>
-                                    </div>
-
+                                            <input type="file" id="upload-input" accept="image/*" hidden>
+                                            <label for="upload-input">
+                                            <div id="profile-pic-container">
+                                            <img id="profile-pic" src="images/profileSignup.png" alt="Profile Picture">
+                                            <div id="upload-icon">Click to Upload</div>
+                                            </div>
+                                            </label>
             
-                    
+            
+                                            <div class="row">
+            
+                                                <div class="col-lg-6 col-md-6 col-12">
+                                                    
+                                                    <div class="form-floating">
+                                                        <input type="text" name="firstname" id="first-name" class="form-control" placeholder="First Name" required>
+                                                        
+                                                        <label for="floatingInput">First Name</label>
+                                                    </div>
+            
+            
+                                                    <div class="form-floating">
+                                                        <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required>
+                                                        
+                                                        <label for="floatingInput">Email Address</label>
+                                                    </div>
+                                                    
+            
+                                                    <div class="form-floating">
+                                                        <input type="text" name="city" id="city" class="form-control" placeholder="city" required>
+                                                        
+                                                        <label for="floatingInput">City</label>
+                                                    </div>
+            
+            
+            
+                                                    <div class="form-floating">
+                                                        <input type="tel" name="phone" id="phone" class="form-control" placeholder="phone" required>
+                                                        
+                                                        <label for="floatingInput">Phone Number</label>
+                                                    </div>
+                                
+                                
+                                                </div>
+            
+                                                <div class="col-lg-6 col-md-6 col-12"> 
+                                                    <div class="form-floating">
+                                                        <input type="text" name="lastname" id="last-name" class="form-control" placeholder="Last Name" required>
+                                                        
+                                                        <label for="floatingInput">Last Name</label>
+                                                    </div>
+            
+                                                    <div class="form-floating">
+                                                        <input type="password" name="password" id="password" class="form-control" placeholder="password" required>
+                                                        
+                                                        <label for="floatingInput">Password</label>
+                                                    </div>
+            
+                                                    <div class="form-floating">
+                                                        <input type="number" name="age" min="18" id="age" class="form-control" placeholder="age" required>
+                                                        
+                                                        <label for="floatingInput">Age</label>
+                                        
+                                                    </div>
+            
+            
+                                                    <div class="form-floating">
+                                                    <select id="gender" name="gender" class="form-control">
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
+                                                    </select>
+                                                    <label for="floatingInput">Gender</label>
+                                                </div>
+                                                </div>
+            
+                                                <div class="col-lg-12 col-12">
+                                    
+                                                    <div class="form-floating">
+                                                        <textarea class="form-control" id="message" name="message" placeholder="Describe message here"></textarea>
+                                                        
+                                                        <label for="floatingTextarea">Tell us more about yourself, your spoken languages, and your cultural knowledge!</label>
+                                                    </div>
+                                                </div>
+            
+            
+            
+            
+            
+            
+                                                <div class="col-lg-4 col-12 ms-auto">
+                                                    <button type="submit" class="form-control">Sign Up</button>
+                                                    <label id="link1">Already have an account? <a href="login.html" id="link2">Log in</a></label>
+                                                   
 
+                                                </div>
+            
+                        
+                                
+            
+                                            </div>
+            
+                                        </form>
+                                    </div>
                                 </div>
-
-                            </form>
+                            
                             </div>
                         </div>
 
