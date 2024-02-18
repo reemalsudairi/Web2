@@ -142,6 +142,43 @@ strong {
 }
 
 
+
+
+
+
+/*---------------------------------------
+  for request page               
+-----------------------------------------*/
+
+.customaccept-btn{
+  background: green;
+  border:2px solid green;
+  margin-bottom:5px
+  }
+  .customreject-btn{
+  background: red;
+  border:2px solid red;
+  
+  margin-bottom:5px}
+  
+ 
+  
+  .namebesideflag{
+      padding-top: 8px; 
+      font-weight:bolder;
+  }
+  
+  .languagetext{
+      font-size:small; 
+      font-weight: bolder;
+  }
+  .accrejtag{
+      font-size: small; font-weight: 700; color: white; border-radius: 5%;
+  }
+  .smallfont{
+  
+      font-size:small;
+  }
 /*---------------------------------------
   SECTION               
 -----------------------------------------*/
