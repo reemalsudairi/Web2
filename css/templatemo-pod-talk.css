@@ -391,19 +391,25 @@ main {
   padding-bottom: 20px;
 }
 
+
 .navsignup {
   position: absolute;
-  right: 10;
-  left: 10;
-  z-index: 9; 
+  top: 20;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 9;
   padding-top: 0px;
   padding-bottom: 0px;
 }
 
 .navbar .navbar-brand,
-.navbar .navbar-brand:hover {
+.navbar .navbar-brand:hover,
+.navsignup .navbar-brand,
+.navsignup .navbar-brand:hover {
   color: var(--white-color);
 }
+
 
 .navbar .logo-image {
   width: 70px;
@@ -448,7 +454,8 @@ main {
   color: var(--secondary-color);
 }
 
-.navbar .dropdown-menu {
+.navbar .dropdown-menu,
+.navsignup .dropdown-menu {
   background: var(--white-color);
   box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
   border: 0;
@@ -461,7 +468,8 @@ main {
   pointer-events: none;
 }
 
-.navbar .dropdown-menu::before {
+.navbar .dropdown-menu::before, 
+.navsignup .dropdown-menu::before{
   content: "";
   width: 0;
   height: 0;
@@ -473,7 +481,8 @@ main {
   left: 10px;
 }
 
-.navbar .dropdown-item {
+.navbar .dropdown-item,
+.navsignup .dropdown-item  {
   display: inline-block;
   color: var(--p-bg-color);
   font-family: var(--title-font-family); 
@@ -487,12 +496,17 @@ main {
 .navbar .dropdown-item.active, 
 .navbar .dropdown-item:active,
 .navbar .dropdown-item:focus, 
-.navbar .dropdown-item:hover {
+.navbar .dropdown-item:hover,
+.navsignup .dropdown-item.active, 
+.navsignup .dropdown-item:active,
+.navsignup .dropdown-item:focus, 
+.navsignup .dropdown-item:hover{
   background: transparent;
   color: var(--secondary-color);
 }
 
-.navbar .dropdown-toggle::after {
+.navbar .dropdown-toggle::after,
+.navsignup .dropdown-toggle::after {
   content: "\f282";
   display: inline-block;
   font-family: bootstrap-icons !important;
@@ -511,7 +525,8 @@ main {
 }
 
 @media screen and (min-width: 992px) {
-  .navbar .dropdown:hover .dropdown-menu {
+  .navbar .dropdown:hover .dropdown-menu,
+  .navsignup .dropdown:hover .dropdown-menu  {
     opacity: 1;
     margin-top: 0;
     pointer-events: auto;
@@ -1402,7 +1417,6 @@ main {
   opacity: 50;
 }
 #link1 {
-
 font-size: 15px;
 }
 
@@ -1414,3 +1428,4 @@ font-size: 15px;
 #link2:hover {
  color: var(--link-hover-color);
 }
+
