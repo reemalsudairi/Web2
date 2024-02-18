@@ -64,87 +64,94 @@
             <section class="contact-section section-padding pt-0">
                 
                 <div class="container">
-                    <br><br><br><br>
+                    <br><br>
                     <div class="section-title-wrap mb-5">
                             
-                        <h4 class="section-title">Sign up</h4>
+                        <h4 class="section-title">Create An Account</h4>
                         
                     </div>
                     <div class="row">
                         
 
                         <div class="col-lg-8 col-12 mx-auto">
-                           
+                            <div class="custom-block custom-block-full">
+                                <div class="custom-block-image-wrap">
+                                    
+                                    <form action="#" method="post" class="custom-form contact-form" role="form">
 
-                            <form action="#" method="post" class="custom-form contact-form" role="form">
 
+                                        <input type="file" id="upload-input" accept="image/*" hidden>
+                                        <label for="upload-input">
+                                        <div id="profile-pic-container">
+                                        <img id="profile-pic" src="images/profileSignup.png" alt="Profile Picture">
+                                        <div id="upload-icon">Click to Upload</div>
+                                        </div>
+                                        </label>
+        
+                                        <div class="row">
+        
+                                            <div class="col-lg-6 col-md-6 col-12">
+                                                
+                                                <div class="form-floating">
+                                                    <input type="text" name="firstname" id="first-name" class="form-control" placeholder="First Name" required>
+                                                    
+                                                    <label for="floatingInput">First Name</label>
+                                                </div>
+        
+        
+                                                <div class="form-floating">
+                                                    <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required>
+                                                    
+                                                    <label for="floatingInput">Email Address</label>
+                                                </div>
+                                                
+        
+                                                <div class="form-floating">
+                                                    <input type="text" name="city" id="city" class="form-control" placeholder="city" required>
+                                                    
+                                                    <label for="floatingInput">City</label>
+                                                </div>
+                            
+                                            </div>
+        
+                                            <div class="col-lg-6 col-md-6 col-12"> 
+                                                <div class="form-floating">
+                                                    <input type="text" name="lastname" id="last-name" class="form-control" placeholder="Last Name" required>
+                                                    
+                                                    <label for="floatingInput">Last Name</label>
+                                                </div>
+        
+                                                <div class="form-floating">
+                                                    <input type="password" name="password" id="password" class="form-control" placeholder="password" required>
+                                                    
+                                                    <label for="floatingInput">Password</label>
+                                                </div>
+        
+                                                <div class="form-floating">
+                                                    <input type="text" name="location" id="location" class="form-control" placeholder="location" required>
+                                                    
+                                                    <label for="floatingInput">Location</label>
+                                                </div>
+        
+                                            </div>
+        
+        
+                                            <div class="col-lg-4 col-12 ms-auto">
+                                                <button type="submit" class="form-control">Sign Up</button>
+                                                <label id="link1">Already have an account? <a href="login.html" id="link2">Log in</a></label>
+                                            </div>
+        
+        
+                            
+        
+                                        </div>
+        
+                                    </form>
 
-                                <input type="file" id="upload-input" accept="image/*" hidden>
-                                <label for="upload-input">
-                                <div id="profile-pic-container">
-                                <img id="profile-pic" src="images/profileSignup.png" alt="Profile Picture">
-                                <div id="upload-icon">Click to Upload</div>
                                 </div>
-                                </label>
+                            </div>
 
-                                <div class="row">
-
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        
-                                        <div class="form-floating">
-                                            <input type="text" name="firstname" id="first-name" class="form-control" placeholder="First Name" required>
-                                            
-                                            <label for="floatingInput">First Name</label>
-                                        </div>
-
-
-                                        <div class="form-floating">
-                                            <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required>
-                                            
-                                            <label for="floatingInput">Email address</label>
-                                        </div>
-                                        
-
-                                        <div class="form-floating">
-                                            <input type="text" name="city" id="city" class="form-control" placeholder="city" required>
-                                            
-                                            <label for="floatingInput">City</label>
-                                        </div>
-                    
-                                    </div>
-
-                                    <div class="col-lg-6 col-md-6 col-12"> 
-                                        <div class="form-floating">
-                                            <input type="text" name="lastname" id="last-name" class="form-control" placeholder="Last Name" required>
-                                            
-                                            <label for="floatingInput">Last Name</label>
-                                        </div>
-
-                                        <div class="form-floating">
-                                            <input type="password" name="password" id="password" class="form-control" placeholder="password" required>
-                                            
-                                            <label for="floatingInput">Password</label>
-                                        </div>
-
-                                        <div class="form-floating">
-                                            <input type="text" name="location" id="location" class="form-control" placeholder="location" required>
-                                            
-                                            <label for="floatingInput">Location</label>
-                                        </div>
-
-                                    </div>
-
-
-                                    <div class="col-lg-4 col-12 ms-auto">
-                                        <button type="submit" class="form-control">Sign Up</button>
-                                    </div>
-
-
-                    
-
-                                </div>
-
-                            </form>
+                         
 
 
 
