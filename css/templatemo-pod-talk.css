@@ -312,6 +312,8 @@ main {
 }
 
 
+
+
 .rating-stars-container label.star::before {
   content: '\2605'; /* Unicode character for a star */
 }
@@ -320,11 +322,18 @@ main {
   color: #543786;
 }
 
+.feedback-form {
+  text-align: center; /*lama*/
+}
+
 .rating-stars-container {
-  display: flex;
+
+display: flex; 
   justify-content: center;
   align-items: center; /* Center vertically */
   margin-bottom: 20px;
+  display:inline-block;
+
 }
 
 
@@ -336,6 +345,7 @@ main {
   font-size: 60px;
   color: #543786;
   cursor: pointer;
+  float:right;
 }
 
 .rating-stars-container input[type="radio"]:checked ~ label.star {
@@ -353,7 +363,7 @@ main {
 
 .center.section-title {
   /* Reset any text-align property previously set for .section-title */
-  text-align: initial;
+    text-align: initial;
 }
 
 
