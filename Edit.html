@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -7,7 +8,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Edit Page</title>
+        <title>Tutorverse - My Profile</title>
 
         <!-- CSS FILES -->        
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +37,7 @@
             <nav class="navbar navbar-expand-lg">
                 <div class="container">
                     <a class="navbar-brand me-lg-5 me-0" href="LearnerHomepage.html">
-                        <img src="images/logo.png" class="logo-image img-fluid" alt="templatemo pod talk">
+                        <img src="images/logo.png" class="logo-image img-fluid" alt="Tutorverse logo">
                     </a>
                     
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,30 +46,27 @@
 
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-lg-auto">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="LearnerHomepage.html">Home</a>
-                            </li> <!--لينك صفحة الهوم-->
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#about">About us</a>
-                            </li><!--لينك داخل الصفحة يودينا عن اباوت-->
+                                <a class="nav-link " href="LearnerHomepage.html">Home</a>
+                            </li><!--لينك صفحة الهوم-->
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Contact</a>
-                                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLinkContact" role="button" data-bs-toggle="dropdown" aria-expanded="false">Contact</a>
+                                <ul class="dropdown-menu dropdown-menu-light" >
                                     <li><a class="dropdown-item" href="tel:0508197538">Call us</a></li>
                                     <li><a class="dropdown-item" href="mailto:tutorverse@hotmail.com">Email us</a></li>
                                 </ul>
                             </li><!--لينك كونتاكت-->
 
                             <li class="nav-item dropdown"> <!--صورة البروفايل-->
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLinkProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src="images/profilePic.png"  class="logo-image img-fluid" alt="Photo"> 
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="listing-page.html">View Profile</a></li>
-                                    <li><a class="dropdown-item" href="detail-page.html">View Requests</a></li>
-                                    <li><a class="dropdown-item" href="detail-page.html">Sign out</a></li>
+                                <ul class="dropdown-menu dropdown-menu-light" >
+                                    <li><a class="dropdown-item" href="learnerProfile.html">View Profile</a></li>
+                                    <li><a class="dropdown-item" href="ViewRequest.html">View Requests</a></li>
+                                    <li><a class="dropdown-item" href="mainHome.html">Sign out</a></li>
                                 </ul>
                             </li>
                             
@@ -90,81 +88,83 @@
 
                     </div>
                 </div>
-            </header>
-            <br><br>
-            <div class="contact-section section-padding pt-0"><!--بداية السشنز-->
-                <div class="container">
+            </header>   
+                 <br><br>
+                <div class="contact-section section-padding pt-0"><!--بداية السشنز-->
+                    <div class="container">
                         <div class="col-lg-12 col-12 mx-auto">
                             <div class="section-title-wrap mb-5">
                                 <h4 class="section-title">Edit session request</h4>
                             </div>
                         </div>
                         <div class="container">
-                            <div class="custom-block custom-block-full">
-                        <form action="#" method="post">
-                            <div class="container">
-                                <div class="row">
-                                        <form class="custom-form">
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label for="lesson-date">Select Date:</label>
-                                                        <input type="date" id="lesson-date" name="lesson-date" class="form-control">
-                                                    </div>
-                                                    <div  class="col-md-6">
-                                                    <label for="requestTime">Session Time:</label>
-                                                    <input type="time" id="requestTime" name="requestTime" class="form-control">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="session-duration">Session Duration:</label>
-                                                <select id="session-duration" name="session-duration" class="form-control">
-                                                    <option value="30">30 minutes</option>
-                                                    <option value="40">40 minutes</option>
-                                                    <option value="50">50 minutes</option>
-                                                    <option value="60">60 minutes</option>
-                                                </select>
-                                            </div>
-                                                    <div class="col-md-6">
-                                                        <label for="proficiency">Proficiency:</label>
-                                                        <select id="proficiency" name="proficiency" class="form-control">
-                                                            <option value="Beginner">Beginner</option>
-                                                            <option value="Intermediate">Intermediate</option>
-                                                            <option value="Advanced">Advanced</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
+                             <div class="custom-block custom-block-full">
+                                 <form action="#" method="post">
+                                     <div class="container">
+                                         <div class="row">
+                                             <div class="custom-form">
+                                                 <div class="form-group">
+                                                     <div class="row">
+                                                         <div class="col-md-6">
+                                                             <label for="lesson-date">Select Date:</label>
+                                                              <input type="date" id="lesson-date" name="lesson-date" class="form-control">
+                                                         </div>
+                                                             <div  class="col-md-6">
+                                                                 <label for="requestTime">Session Time:</label>
+                                                                 <input type="time" id="requestTime" name="requestTime" class="form-control">
+                                                             </div>
+                                                     </div>
+                                                 </div>
+                                                 <div class="form-group">
+                                                     <div class="row">
+                                                         <div class="col-md-6">
+                                                             <label for="session-duration">Session Duration:</label>
+                                                             <select id="session-duration" name="session-duration" class="form-control">
+                                                                  <option value="30">30 minutes</option>
+                                                                  <option value="40">40 minutes</option>
+                                                                  <option value="50">50 minutes</option>
+                                                                  <option value="60">60 minutes</option>
+                                                             </select>
+                                                         </div>
+                                                             <div class="col-md-6">
+                                                                 <label for="proficiency">Proficiency:</label>
+                                                                 <select id="proficiency" name="proficiency" class="form-control">
+                                                                     <option value="Beginner">Beginner</option>
+                                                                     <option value="Intermediate">Intermediate</option>
+                                                                     <option value="Advanced">Advanced</option>
+                                                                 </select>
+                                                             </div>
+                                                     </div>
+                                                 </div>
                 
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label for="language">Language:</label>
-                                                        <select id="language" name="language" class="form-control">
-                                                            <option value="English">English</option>
-                                                            <option value="Spanish">Spanish</option>
-                                                            <option value="French">French</option>
-                                                            <!-- Add more languages based on tutor's available languages -->
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                           
-                                        </form>
-                                       
-                                     </div>
-                            </div>
-                            <br>
-                            <button type="submit" class="custom-btn">Edit request</button>
-                            <button type="submit" class="custom-btn">Cancel</button>
-                        </form>
-                        </div>
-                        </div>
+                                                 <div class="form-group">
+                                                     <div class="row">
+                                                         <div class="col-md-6">
+                                                             <label for="language">Language:</label>
+                                                                 <select id="language" name="language" class="form-control">
+                                                                     <option value="English">English</option>
+                                                                     <option value="Spanish">Spanish</option>
+                                                                     <option value="French">French</option>
+                                                                      <!-- Add more languages based on tutor's available languages -->
+                                                                 </select>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                                   <br>
+                                                 </div>
+                                  
+                                              
+                                          
+                                            </div>  
+                                         
+                                         </div>     
+                                            <button type="submit" class="custom-btn">Edit request</button>
+                                             <button type="submit" class="custom-btn">Cancel</button>
+                                     </form>
+                             </div>
+                         </div>
                      </div>
-            </div>
+                </div>
         </main>
             <footer class="site-footer">   
               <div class="container">
@@ -191,7 +191,7 @@
                   <div class="row align-items-center">
           
                       <div class="col-lg-2 col-md-3 col-12">
-                          <a class="navbar-brand" href="index.html">
+                          <a class="navbar-brand" href="LearnerHomepage.html">
                               <img src="images/logo.png" class="logo-image img-fluid" alt="templatemo pod talk">
                           </a>
                       </div>
@@ -203,9 +203,9 @@
               </div>
           </footer>
           <!--end of footer-->
-                  </body>
-          
-          </html>
+    </body>
+
+</html>
 
     
 
