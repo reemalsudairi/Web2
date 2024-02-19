@@ -161,7 +161,11 @@ strong {
   
   margin-bottom:5px}
   
- 
+  .customedit-btn{
+    background:#543786;
+    border:2px solid #543786;
+    margin-bottom:5px
+    }
   
   .namebesideflag{
       padding-top: 8px; 
@@ -296,7 +300,8 @@ main {
   .customreject-btn{
   background: red;
   border:2px solid red;}
-  
+
+ 
   .custom-block-image2 {
       margin: 20px;
       margin-top: 10px;
@@ -1564,3 +1569,4 @@ TRY IT ... with or without CENTER CENTER
     margin-top: 20px;
   }
 }
+
