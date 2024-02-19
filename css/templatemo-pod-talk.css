@@ -161,8 +161,15 @@ strong {
   
   margin-bottom:5px}
   
- 
-  
+  .customedit-btn{
+    background:#543786;
+    border:2px solid #543786;
+    margin-bottom:5px
+    }
+  .purple{
+color:  var(--custom-btn-bg-color);
+
+  }
   .namebesideflag{
       padding-top: 8px; 
       font-weight:bolder;
@@ -296,7 +303,8 @@ main {
   .customreject-btn{
   background: red;
   border:2px solid red;}
-  
+
+ 
   .custom-block-image2 {
       margin: 20px;
       margin-top: 10px;
@@ -312,19 +320,28 @@ main {
 }
 
 
+
+
 .rating-stars-container label.star::before {
   content: '\2605'; /* Unicode character for a star */
 }
 
 .rating-stars-container input[type="radio"]:checked ~ label.star::before {
-  color: #ffcc00;
+  color: #543786;
+}
+
+.feedback-form {
+  text-align: center; /*lama*/
 }
 
 .rating-stars-container {
-  display: flex;
+
+display: flex; 
   justify-content: center;
   align-items: center; /* Center vertically */
   margin-bottom: 20px;
+  display:inline-block;
+
 }
 
 
@@ -334,12 +351,13 @@ main {
 
 .rating-stars-container label.star {
   font-size: 60px;
-  color: #ffd700;
+  color: #543786;
   cursor: pointer;
+  float:right;
 }
 
 .rating-stars-container input[type="radio"]:checked ~ label.star {
-  color: #ffd700; /* Color filled stars */
+  color: #543786; /* Color filled stars */
 }
 
 /* If you want to style unfilled stars differently */
@@ -353,7 +371,7 @@ main {
 
 .center.section-title {
   /* Reset any text-align property previously set for .section-title */
-  text-align: initial;
+    text-align: initial;
 }
 
 
@@ -1554,3 +1572,4 @@ TRY IT ... with or without CENTER CENTER
     margin-top: 20px;
   }
 }
+
