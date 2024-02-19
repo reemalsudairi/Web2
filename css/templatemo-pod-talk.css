@@ -164,8 +164,10 @@ strong {
   .customedit-btn{
     background:#543786;
     border:2px solid #543786;
-    margin-bottom:5px
-    }
+    margin:0px 0px 5px 7px;
+    
+  }
+
   .purple{
 color:  var(--custom-btn-bg-color);
 
