@@ -317,7 +317,7 @@ main {
 }
 
 .rating-stars-container input[type="radio"]:checked ~ label.star::before {
-  color: #ffcc00;
+  color: #543786;
 }
 
 .rating-stars-container {
@@ -334,12 +334,12 @@ main {
 
 .rating-stars-container label.star {
   font-size: 60px;
-  color: #ffd700;
+  color: #543786;
   cursor: pointer;
 }
 
 .rating-stars-container input[type="radio"]:checked ~ label.star {
-  color: #ffd700; /* Color filled stars */
+  color: #543786; /* Color filled stars */
 }
 
 /* If you want to style unfilled stars differently */
