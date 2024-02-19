@@ -170,6 +170,17 @@ strong {
 color:  var(--custom-btn-bg-color);
 
   }
+
+  .buttonsbesideeachother{
+    display: flex;
+    justify-content:space-between;
+
+  }
+
+  .marginleft{
+margin-left: 40px;
+
+  }
   .namebesideflag{
       padding-top: 8px; 
       font-weight:bolder;
@@ -243,6 +254,8 @@ main {
 .section-overlay + .container {
   position: relative;
 }
+
+
 
 
 /*---------------------------------------
