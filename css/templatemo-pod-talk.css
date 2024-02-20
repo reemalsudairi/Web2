@@ -1503,6 +1503,16 @@ font-size: 15px;
 }
 
 
+#link3 {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+#link3:hover {
+ color: var(--link-hover-color);
+}
+
+
 #welcome {
   overflow: hidden;
   position: relative;
