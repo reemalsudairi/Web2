@@ -108,7 +108,7 @@
                                 <div class="tab-content">
                                     <!-- credit card info-->
                                     <div id="credit-card" class="tab-pane fade show active pt-3">
-                                        <form role="form">
+                                        <form role="form" onsubmit="return redirectToHomepage()">
                                             <div class="form-group"> <label for="floatingInput">
                                                     Card Owner
                                                 </label> <input type="text" name="username" placeholder="Card Owner Name" required class="form-control "> </div>
@@ -195,6 +195,21 @@
     </div>
 </footer>
 <!--end of footer-->
+
+<script>
+    function redirectToHomepage() {
+      // Perform any form validation if needed
+      
+      // Redirect the user to the homepage
+      window.location.href = "LearnerHomepage.html";
+      
+      // Prevent the form from submitting immediately
+      return false;
+    }
+  </script>
+
+
+
         </body>
 
 </html>
