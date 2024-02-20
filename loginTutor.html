@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Tutorverse - Sign Up</title>
+        <title>Tutorverse - Log In</title>
 
         <!-- CSS FILES -->        
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,9 +46,12 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-lg-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="mainHome.html">Home</a>
+                                <a class="nav-link" href="LearnerHomepage.html">Home</a>
                             </li> <!--لينك صفحة الهوم-->
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="#about">About us</a>
+                            </li><!--لينك داخل الصفحة يودينا عن اباوت-->
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Contact</a>
@@ -84,7 +87,7 @@
                     <br><br>
                     <div class="section-title-wrap mb-5">
                             
-                        <h4 class="section-title">Create An Account</h4>
+                        <h4 class="section-title">Log Into An Account</h4>
                         
                     </div>
                     <div class="row">
@@ -94,66 +97,41 @@
                             <div class="custom-block custom-block-full">
                                 <div class="custom-block-image-wrap">
                                     
-                                    <form action="#" method="post" class="custom-form contact-form">
-                                        <input type="file" id="upload-input" accept="image/*" hidden>
-                                        <label for="upload-input" id="profile-pic-container">
-                                          <img id="profile-pic" src="images/profileSignup.png" alt="Profile Picture">
-                                          <span id="upload-icon">Click to Upload</span>
-                                        </label>
-                                      
-                                        
+                                    <form action="#" method="post" class="custom-form contact-form" role="form">
+
         
                                         <div class="row">
         
                                             <div class="col-lg-6 col-md-6 col-12">
-                                                
-                                                <div class="form-floating">
-                                                    <input type="text" name="firstname" id="first-name" class="form-control" placeholder="First Name" required>
-                                                    
-                                                    <label for="first-name">First Name</label>
-                                                </div>
+                                                <br><br>
         
         
                                                 <div class="form-floating">
                                                     <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required>
                                                     
-                                                    <label for="email">Email Address</label>
+                                                    <label for="floatingInput">Email Address</label>
                                                 </div>
-                                                
-        
-                                                <div class="form-floating">
-                                                    <input type="text" name="city" id="city" class="form-control" placeholder="city" required>
-                                                    
-                                                    <label for="city">City</label>
-                                                </div>
+
                             
                                             </div>
         
                                             <div class="col-lg-6 col-md-6 col-12"> 
-                                                <div class="form-floating">
-                                                    <input type="text" name="lastname" id="last-name" class="form-control" placeholder="Last Name" required>
-                                                    
-                                                    <label for="last-name">Last Name</label>
-                                                </div>
+                                                <br><br>
         
                                                 <div class="form-floating">
                                                     <input type="password" name="password" id="password" class="form-control" placeholder="password" required>
                                                     
-                                                    <label for="password">Password</label>
+                                                    <label for="floatingInput">Password</label>
                                                 </div>
         
-                                                <div class="form-floating">
-                                                    <input type="text" name="location" id="location" class="form-control" placeholder="location" required>
-                                                    
-                                                    <label for="location">Location</label>
-                                                </div>
+
         
                                             </div>
         
         
                                             <div class="col-lg-4 col-12 ms-auto">
-                                                <button type="submit" class="form-control">Sign Up</button>
-                                                <label id="link1">Already have an account? <a href="login.html" id="link2">Log in</a></label>
+                                                <button type="submit" class="form-control">Log In</button>
+                                                <label id="link1">Don't have an account? <a href="signupTutor.html" id="link2">Sign up</a></label>
                                             </div>
         
         
@@ -164,7 +142,7 @@
                                     </form>
 
                                 </div>
-                            </div> 
+                            </div>
 
                          
 
