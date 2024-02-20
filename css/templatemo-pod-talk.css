@@ -149,6 +149,22 @@ strong {
 /*---------------------------------------
   for request page               
 -----------------------------------------*/
+.purpleboldsmalltext{
+  font-size: small; 
+  color: var(--custom-btn-bg-color);
+  font-weight: 700;
+
+}
+
+.pricestyling{
+
+  margin-left: 50px; margin-top: 10px; position: relative;
+}
+
+.ratingmargin{
+
+  margin-top: 7px;
+}
 
 .customaccept-btn{
   background: green;
@@ -160,6 +176,12 @@ strong {
   border:2px solid red;
   
   margin-bottom:5px}
+
+  .custompending-btn{
+    background: gray;
+    border:2px solid grey;
+    margin-bottom:5px
+    }
   
   .customedit-btn{
     background:#543786;
