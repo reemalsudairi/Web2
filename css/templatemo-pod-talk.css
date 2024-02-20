@@ -365,6 +365,8 @@ main {
 
 
 
+
+
 .rating-stars-container label.star::before {
   content: '\2605'; /* Unicode character for a star */
 }
@@ -1499,6 +1501,16 @@ font-size: 15px;
 }
 
 #link2:hover {
+ color: var(--link-hover-color);
+}
+
+
+#link3 {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+#link3:hover {
  color: var(--link-hover-color);
 }
 
