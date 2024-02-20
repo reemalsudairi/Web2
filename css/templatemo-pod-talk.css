@@ -365,6 +365,8 @@ main {
 
 
 
+
+
 .rating-stars-container label.star::before {
   content: '\2605'; /* Unicode character for a star */
 }
