@@ -94,7 +94,7 @@
                             <div class="custom-block custom-block-full">
                                 <div class="custom-block-image-wrap">
                                     
-                                    <form action="#" method="post" class="custom-form contact-form">
+                                    <form action="#" method="post" class="custom-form contact-form" onsubmit="return redirectToHomepage()">
 
         
                                         <div class="row">
@@ -202,6 +202,21 @@
     </div>
 </footer>
 <!--end of footer-->
+
+
+
+<script>
+    function redirectToHomepage() {
+      // Perform any form validation if needed
+      
+      // Redirect the user to the homepage
+      window.location.href = "LearnerHomepage.html";
+      
+      // Prevent the form from submitting immediately
+      return false;
+    }
+  </script>
+
         </body>
 
 </html>
