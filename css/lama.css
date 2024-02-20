@@ -1,10 +1,9 @@
 
-
 img {
     width: 50px;
-    vertical-align: middle;
-    border-style: none;
-    border-radius: 100%;
+    vertical-align: middle; 
+  border-style: none;
+    border-radius: 8%; /*lama*/
 }
 /* Styling the msg-header container */
 .msg-header {
@@ -20,7 +19,8 @@ img {
 }
 /* Styling the profile picture */
 .msgimg {
-    margin-left: 2%;
+    margin-left: 4%; /*Lama */
+    margin-bottom: 4%; /*lama */
     float: left;
 }
 
