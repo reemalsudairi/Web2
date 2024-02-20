@@ -94,7 +94,7 @@
                             <div class="custom-block custom-block-full">
                                 <div class="custom-block-image-wrap">
                                     
-                                    <form action="LearnerHomepage.html" method="post" class="custom-form contact-form">
+                                    <form action="#" method="post" class="custom-form contact-form" onsubmit="return redirectToHomepage()">
                                         <input type="file" id="upload-input" accept="image/*" hidden>
                                         <label for="upload-input" id="profile-pic-container">
                                           <img id="profile-pic" src="images/profileSignup.png" alt="Profile Picture">
@@ -223,6 +223,22 @@
     </div>
 </footer>
 <!--end of footer-->
+
+
+<script>
+    function redirectToHomepage() {
+      // Perform any form validation if needed
+      
+      // Redirect the user to the homepage
+      window.location.href = "LearnerHomepage.html";
+      
+      // Prevent the form from submitting immediately
+      return false;
+    }
+  </script>
+
         </body>
+
+
 
 </html>
