@@ -84,6 +84,7 @@
                 </div>
             </header>
            
+<<<<<<< HEAD
               <br><br>
            <div class="contact-section section-padding pt-0"><!--بداية السشنز-->
                 <div class="container">
@@ -165,6 +166,83 @@
                             </div>
                         </div>
                 </div>
+=======
+<br><br>
+<div class="contact-section section-padding pt-0"><!--بداية السشنز-->
+    <div class="container">
+            <div class="col-lg-12 col-12 mx-auto">
+                <div class="section-title-wrap mb-5">
+                    <h4 class="section-title">Post Session Request</h4>
+                </div>
+            </div>
+            <div class="container">
+                <div class="custom-block custom-block-full">
+            <form role="form" onsubmit="return redirectToHomepage()">
+                <div class="container">
+                    <div class="row">
+                            
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="lesson-date">Select Date:</label>
+                                            <input type="date" id="lesson-date" name="lesson-date" class="form-control" required>
+                                        </div>
+                                        <div  class="col-md-6">
+                                        <label for="requestTime">Session Time:</label>
+                                        <input type="time" id="requestTime" name="requestTime" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                <div class="col-md-6">
+                                    <label for="session-duration">Session Duration:</label>
+                                    <select id="session-duration" name="session-duration" class="form-control" required>
+                                        <option value="30">30 minutes</option>
+                                        <option value="40">40 minutes</option>
+                                        <option value="50">50 minutes</option>
+                                        <option value="60">60 minutes</option>
+                                    </select>
+                                </div>
+                                        <div class="col-md-6">
+                                            <label for="proficiency">Proficiency:</label>
+                                            <select id="proficiency" name="proficiency" class="form-control" required>
+                                                <option value="Beginner">Beginner</option>
+                                                <option value="Intermediate">Intermediate</option>
+                                                <option value="Advanced">Advanced</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="language">Language:</label>
+                                            <select id="language" name="language" class="form-control" required>
+                                                <option value="English">English</option>
+                                                <option value="Spanish">Spanish</option>
+                                                <option value="French">French</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="custom-block-btn-group">
+                                        
+                                    <a href="LearnerHomepage.html" class="btn custom-btn customreject-btn ">Cancel</a>
+                                
+                                    <button type="submit" class="btn custom-btn customedit-btn">Post Request</button>
+                                
+                                </div>
+                            
+                           
+                         </div>
+                </div>
+                <br>
+                <br>
+                <br>
+            </form>
+>>>>>>> 6eece9cebf0b8451d00c68a56d621c2b982be8c8
             </div>
        </main>
 
@@ -207,8 +285,33 @@
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
         </footer>
             <!--end of footer-->
     </body>
+=======
+
+            <div class="col-lg-3 col-12">
+                <p class="copyright-text mb-0">Copyright © 2024 Tutorverse </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--end of footer-->
+
+<script>
+    function redirectToHomepage() {
+      // Perform any form validation if needed
+      
+      // Redirect the user to the homepage
+      window.location.href = "ViewRequest.html";
+      
+      // Prevent the form from submitting immediately
+      return false;
+    }
+  </script>
+
+        </body>
+>>>>>>> 6eece9cebf0b8451d00c68a56d621c2b982be8c8
 
 </html>
