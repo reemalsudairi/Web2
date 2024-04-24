@@ -65,7 +65,7 @@ function learner_signup_handler($fname, $lname, $email, $password, $profilepic, 
 {
 
     global $conn;
-    $sql = "INSERT INTO `learner` VALUES ('" . $fname . "','" . $lname . "','" . $email . "','" . $password . "','" . $profilepic . "','" . $city . "','" . $location "')";
+    $sql = "INSERT INTO `learner` VALUES ('" . $fname . "','" . $lname . "','" . $email . "','" . $password . "','" . $profilepic . "','" . $city . "','" . $location . "')";
     $result = mysqli_query($conn, $sql);
 
     return $result;
