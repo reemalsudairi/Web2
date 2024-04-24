@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
             $_POST["firstname"] = $_POST["lastname"] = $_POST["password"] = $_POST["age"] = $_POST["gender"] = $_POST["city"] = $_POST["email"] = $_POST["price"] = $_POST["bio"] = $_POST["phone"] = "";
-            echo '<script>alert("Registration successful!");window.location.href="LoginPage.php";</script>';//نعدل لوكيشن اللوق ان
+            echo '<script>alert("Registration successful!");window.location.href="login.php";</script>';//نعدل لوكيشن اللوق ان
 
         }
     }
@@ -194,15 +194,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 <div class="custom-block custom-block-full">
                                     <div class="custom-block-image-wrap">
-                                        <form action="#" method="post" class="custom-form contact-form" onsubmit="return redirectToHomepage()">
+                                        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" class="custom-form contact-form" onsubmit="return redirectToHomepage()">
+
                                             <input type="file" id="upload-input" accept="image/*" hidden>
                                             <label for="upload-input" id="profile-pic-container">
                                               <img id="profile-pic" src="images/profileSignup.png" alt="Profile Picture">
                                               <span id="upload-icon">Click to Upload</span>
                                             </label>
-                                          
-            
-            
                                             <div class="row">
             
                                                 <div class="col-lg-6 col-md-6 col-12">
@@ -210,7 +208,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     <div class="form-floating">
                                                         <input type="text" name="firstname" id="first-name" class="form-control" placeholder="First Name" required>
                                                         
-                                                        <label for="first-name">First Name</label>
+                                                        <label for="first-name">First Name <?php echo $fname_err; ?> </label>
                                                     </div>
             
             
@@ -242,7 +240,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     <div class="form-floating">
                                                         <input type="text" name="lastname" id="last-name" class="form-control" placeholder="Last Name" required>
                                                         
-                                                        <label for="last-name">Last Name</label>
+                                                        <label for="last-name">Last Name <?php echo $lname_err; ?></label>
                                                     </div>
             
                                                     <div class="form-floating">
