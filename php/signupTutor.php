@@ -215,14 +215,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     <div class="form-floating">
                                                         <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required>
                                                         
-                                                        <label for="email">Email Address</label>
+                                                        <label for="email">Email Address <?php echo $email_err; ?></label>
                                                     </div>
                                                     
             
                                                     <div class="form-floating">
                                                         <input type="text" name="city" id="city" class="form-control" placeholder="city" required>
                                                         
-                                                        <label for="city">City</label>
+                                                        <label for="city">City <?php echo $city_err; ?></label>
                                                     </div>
             
             
@@ -230,7 +230,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     <div class="form-floating">
                                                         <input type="tel" name="phone" id="phone" class="form-control" placeholder="phone" required>
                                                         
-                                                        <label for="phone">Phone Number</label>
+                                                        <label for="phone">Phone Number<?php echo $phone_err; ?></label>
                                                     </div>
                                 
                                 
@@ -246,20 +246,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     <div class="form-floating">
                                                         <input type="password" name="password" id="password" minlength="8" class="form-control" placeholder="password" required>
                                                         
-                                                        <label for="password">Password</label>
+                                                        <label for="password">Password<?php echo $password_err; ?></label>
                                                     </div>
             
                                                     <div class="form-floating">
                                                         <input type="number" name="age" min="18" id="age" class="form-control" placeholder="age" required>
                                                         
-                                                        <label for="age">Age</label>
+                                                        <label for="age">Age <?php echo $age_err; ?></label>
                                         
                                                     </div>
 
                                                     <div class="form-floating">
                                                         <input type="number" name="price" id="price" class="form-control" placeholder="price" min="0" required >
                                                         
-                                                        <label for="price">Price</label>
+                                                        <label for="price">Price<?php echo $price_err; ?></label>
                                                     </div>
             
             
@@ -268,7 +268,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                         <option value="male">Male</option>
                                                         <option value="female">Female</option>
                                                     </select>
-                                                    <label for="gender">Gender</label>
+                                                    <label for="gender">Gender</label><!-- مدري كيف  الecho-->
                                                 </div>
                                                 </div>
             
@@ -277,25 +277,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     <div class="form-floating">
                                                         <textarea class="form-control" id="bio" name="bio" placeholder="Describe bio here"></textarea>
                                                         
-                                                        <label for="bio">Tell us more about yourself, your spoken languages, and your cultural knowledge!</label>
+                                                        <label for="bio">Tell us more about yourself, your spoken languages, and your cultural knowledge!<?php echo $bio_err; ?></label>
                                                     </div>
                                                 </div>
-            
-            
-            
-            
-            
-            
                                                 <div class="col-lg-4 col-12 ms-auto">
                                                  <button type="submit" class="form-control" >Sign Up</button>
                                                     <label id="link1">Already have an account? <a href="login.html" id="link2">Log in</a></label>
                                                    
-
                                                 </div>
-            
-                        
-                                
-            
                                             </div>
             
                                         </form>
