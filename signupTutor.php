@@ -1,5 +1,5 @@
 <?php
-require("../php/query.php");
+require("php/query.php");
 $fname_err = $lname_err = $password_err = $age_err = $gender_err = $city_err = $email_err = $profilepic_err = $price_err =  $bio_err = $phone_err = $notification = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
