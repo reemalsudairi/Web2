@@ -1,17 +1,7 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "tutorverse";
+session_start();
 
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-require("php/query.php");
+include("connection.php");
 
 $errors = array(
     'fname' => '',
@@ -27,14 +17,14 @@ $errors = array(
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and validate input fields
-    $fname = validate($_POST["firstname"]);
-    $lname = validate($_POST["lastname"]);
-    $email = validate($_POST["email"]);
-    $password = validate($_POST["password"]);
-    $age = validate($_POST["age"]);
-    $city = validate($_POST["city"]);
-    $phone = validate($_POST["phone"]);
-    $bio = validate($_POST["bio"]);
+    $fname = $_POST["firstname"];
+    $lname = $_POST["lastname"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $age = $_POST["age"];
+    $city = $_POST["city"];
+    $phone = $_POST["phone"];
+    $bio = $_POST["bio"];
 
     // Validate first name
     if (empty($fname) || !ctype_alpha(str_replace(" ", "", $fname))) {
@@ -82,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // If there are no errors, proceed with signup
-    if (empty(array_filter($errors))) {
+   /* if (empty(array_filter($errors))) {
         // Handle file upload for profile picture (if any)
         $imageName = "images/profilePic.png"; // Default image name
         if (!empty($_FILES['profilepic']['name'])) {
@@ -102,7 +92,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $errors['notification'] = 'Registration failed. Please try again later.';
         }
-    }
+    }*/
+
+    $query="insert into tutor('Fname' , 'Lname', 'password' , 'age', 'gender' , 'city' , 'email' , 'profilepic', 'price', 'bio', 'phone')  VALUES ('$fname','$lname','$password','$gender','$city','$email','$profilepic','$price','$bio','$phone ')";
+    mysqli_query($conn,$query)
 }
 ?>
 
@@ -215,21 +208,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     <div class="form-floating">
                                                         <input type="text" name="firstname" id="first-name" class="form-control" placeholder="First Name" required>
                                                         
-                                                        <label for="first-name">First Name <?php echo $fname_err; ?> </label>
+                                                        <label for="first-name">First Name <?php echo $errors['fname']; ?> </label>
                                                     </div>
             
             
                                                     <div class="form-floating">
                                                         <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required>
                                                         
-                                                        <label for="email">Email Address <?php echo $email_err; ?></label>
+                                                        <label for="email">Email Address <?php echo $errors['email']; ?></label>
                                                     </div>
                                                     
             
                                                     <div class="form-floating">
                                                         <input type="text" name="city" id="city" class="form-control" placeholder="city" required>
                                                         
-                                                        <label for="city">City <?php echo $city_err; ?></label>
+                                                        <label for="city">City <?php echo $errors['city']; ?></label>
                                                     </div>
             
             
@@ -237,7 +230,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     <div class="form-floating">
                                                         <input type="tel" name="phone" id="phone" class="form-control" placeholder="phone" required>
                                                         
-                                                        <label for="phone">Phone Number<?php echo $phone_err; ?></label>
+                                                        <label for="phone">Phone Number<?php echo $errors['phone']; ?></label>
                                                     </div>
                                 
                                 
@@ -247,19 +240,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     <div class="form-floating">
                                                         <input type="text" name="lastname" id="last-name" class="form-control" placeholder="Last Name" required>
                                                         
-                                                        <label for="last-name">Last Name <?php echo $lname_err; ?></label>
+                                                        <label for="last-name">Last Name <?php echo $errors['lname']; ?></label>
                                                     </div>
             
                                                     <div class="form-floating">
                                                         <input type="password" name="password" id="password" minlength="8" class="form-control" placeholder="password" required>
                                                         
-                                                        <label for="password">Password<?php echo $password_err; ?></label>
+                                                        <label for="password">Password<?php echo $errors['password']; ?></label>
                                                     </div>
             
                                                     <div class="form-floating">
                                                         <input type="number" name="age" min="18" id="age" class="form-control" placeholder="age" required>
                                                         
-                                                        <label for="age">Age <?php echo $age_err; ?></label>
+                                                        <label for="age">Age <?php echo $errors['age']; ?></label>
                                         
                                                     </div>
 
@@ -284,7 +277,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     <div class="form-floating">
                                                         <textarea class="form-control" id="bio" name="bio" placeholder="Describe bio here"></textarea>
                                                         
-                                                        <label for="bio">Tell us more about yourself, your spoken languages, and your cultural knowledge!<?php echo $bio_err; ?></label>
+                                                        <label for="bio">Tell us more about yourself, your spoken languages, and your cultural knowledge!<?php echo $errors['bio']; ?></label>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 col-12 ms-auto">
