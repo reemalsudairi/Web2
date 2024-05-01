@@ -40,7 +40,7 @@ function contact_us_handler($name, $email, $message)
 function tutor_signup_handler($fname, $lname, $password, $age, $gender, $city, $email, $profilepic, $price, $bio, $phone)
 {
     global $conn;
-    $sql = "INSERT INTO `tutor`('Fname' , 'Lname', 'password' , 'age', 'gender' , 'city' , 'email' , 'profilepic', 'price', 'bio', 'phone')  VALUES ('" . $fname . "','" . $lname . "','" . $password . "','" . $gender . "','" . $city . "','" . $email . "','" . $profilepic . "','" . $price . "','" . $bio . "','" . $phone . "')";
+    $sql = "INSERT INTO `tutor` (`Fname`, `Lname`, `password`, `age`, `gender`, `city`, `email`, `profilepic`, `price`, `bio`, `phone`) VALUES ('" . $fname . "','" . $lname . "','" . $password . "','" . $gender . "','" . $city . "','" . $email . "','" . $profilepic . "','" . $price . "','" . $bio . "','" . $phone . "')";
     $result = mysqli_query($conn, $sql);
     return $result;
 }
@@ -65,7 +65,7 @@ function learner_signup_handler($fname, $lname, $email, $password, $profilepic, 
 {
 
     global $conn;
-    $sql = "INSERT INTO `learner` VALUES ('" . $fname . "','" . $lname . "','" . $email . "','" . $password . "','" . $profilepic . "','" . $city . "','" . $location . "')";
+    $sql = "INSERT INTO `learner` (`Fname`, `Lname`, `email`, `password`, `profilepic`, `city`, `location`) VALUES ('" . $fname . "','" . $lname . "','" . $email . "','" . $password . "','" . $profilepic . "','" . $city . "','" . $location . "')";
     $result = mysqli_query($conn, $sql);
 
     return $result;
@@ -75,7 +75,7 @@ function learner_signup_handler($fname, $lname, $email, $password, $profilepic, 
 function get_rates($email)
 {
     global $conn;
-    $sql = "SELECT review.rate, review.feedback, review.date, review.time , parent.firstName,parent.lastName,parent.img FROM `review`, `parent` WHERE review.parentEmail = parent.email AND review.babysitterEmail = '" . $email . "'";
+    $sql = "SELECT review.rate, review.feedback, review.date, review.time, parent.firstName, parent.lastName, parent.img FROM `review`, `parent` WHERE review.parentEmail = parent.email AND review.babysitterEmail = '" . $email . "'";
     $result = mysqli_query($conn, $sql);
     // dd(mysqli_fetch_assoc($result));
     return $result;
