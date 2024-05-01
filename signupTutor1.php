@@ -88,11 +88,21 @@
                         <div class="row">
                             <div class="col-lg-8 col-12 mx-auto">
                                
-                                
+<?php $errors = array(
+    "firstname" => "",
+    "email" => "",
+    "city" => "",
+    "phone" => "",
+    "lastname" => "",
+    "password" => "",
+    "age" => "",
+    "gender" => "",
+    "bio" => ""
+); ?>
 
                                 <div class="custom-block custom-block-full">
                                     <div class="custom-block-image-wrap">
-                                        <form action=<?php echo $_SERVER["PHP_SELF"];?> method="post" class="custom-form contact-form" ">
+                                        <form action=<?php echo $_SERVER["PHP_SELF"];?> method="post" class="custom-form contact-form" >
                                             <input type="file" id="upload-input" accept="image/*" hidden>
                                             <label for="upload-input" id="profile-pic-container">
                                               <img id="profile-pic" src="images/profileSignup.png" alt="Profile Picture">

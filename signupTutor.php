@@ -1,9 +1,9 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "tutorverse";
-
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
@@ -24,6 +24,15 @@ $errors = array(
     'bio' => '',
     'notification' => ''
 );
+$fname_err = '';
+$lname_err = '';
+$email_err = '';
+$city_err = '';
+$phone_err = '';
+$password_err = '';
+$age_err = '';
+$price_err = '';
+$bio_err = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and validate input fields
@@ -104,6 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+mysqli_close($conn);
 ?>
 
 
@@ -360,8 +370,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 </script>
         </body>
-
-
-
 
 </html>
