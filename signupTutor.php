@@ -24,9 +24,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $gender = $_POST['gender'];
     $bio = $_POST['bio'];
     $price = $_POST['price'];
+    if(isset($_FILES['profilepic']) && $_FILES['profilepic']['error'] == UPLOAD_ERR_OK) {
+        $file_tmp_name = $_FILES['profilepic']['tmp_name'];
+        $profilePic = file_get_contents($file_tmp_name); // Read file content
+    
+        // Escape special characters to prevent SQL injection
+        $profilePic = $conn->real_escape_string($profilePic);
+    }
 
     // SQL to insert data into tutor table
-    $sql = "INSERT INTO tutor (Fname, Lname, email, city, phone, password, age, gender, bio, price) VALUES ('$fname', '$lname', '$email', '$city', '$phone', '$password', '$age', '$gender', '$bio', '$price')";
+    $sql = "INSERT INTO tutor (Fname, Lname, email, city, phone, password, age, gender, bio, price, profilepic) VALUES ('$fname', '$lname', '$email', '$city', '$phone', '$password', '$age', '$gender', '$bio', '$price', '$profilePic')";
 
     if ($conn->query($sql) === TRUE) {
         // Data inserted successfully
@@ -113,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="custom-block custom-block-full">
                     <div class="custom-block-image-wrap">
                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" class="custom-form contact-form" onsubmit="return redirectToHomepage()">
-                            <input type="file" id="upload-input" accept="image/*" hidden>
+                            <input type="file" name="profilepic" id="upload-input" accept="image/*" hidden>
                             <label for="upload-input" id="profile-pic-container">
                                 <img id="profile-pic" src="images/profileSignup.png" alt="Profile Picture">
                                 <span id="upload-icon">Click to Upload</span>
