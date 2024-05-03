@@ -1,17 +1,5 @@
 <?php
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "tutorverse";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
+require('connect.php');
 // Form submission handling
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fname = $_POST['firstname'];
@@ -24,20 +12,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $gender = $_POST['gender'];
     $bio = $_POST['bio'];
     $price = $_POST['price'];
+
+    // Check if a file is uploaded
     if(isset($_FILES['profilepic']) && $_FILES['profilepic']['error'] == UPLOAD_ERR_OK) {
+        // Get the temporary file path
         $file_tmp_name = $_FILES['profilepic']['tmp_name'];
-        $profilePic = file_get_contents($file_tmp_name); // Read file content
-    
+        
+        // Read file content
+        $profilePic = file_get_contents($file_tmp_name);
+
         // Escape special characters to prevent SQL injection
         $profilePic = $conn->real_escape_string($profilePic);
-    }
+    } else {
+        // If no file is uploaded, load the default profile picture
+        $defaultProfilePic = file_get_contents('images/profilepic2.jpg');
 
+        // Escape special characters to prevent SQL injection
+        $profilePic = $conn->real_escape_string($defaultProfilePic);
+    }
+    
     // SQL to insert data into tutor table
     $sql = "INSERT INTO tutor (Fname, Lname, email, city, phone, password, age, gender, bio, price, profilepic) VALUES ('$fname', '$lname', '$email', '$city', '$phone', '$password', '$age', '$gender', '$bio', '$price', '$profilePic')";
 
     if ($conn->query($sql) === TRUE) {
         // Data inserted successfully
         // Redirect or perform any other actions
+        header('Location: tutorProfile.php');
     } else {
         // Check if the error is due to a duplicate entry
         if ($conn->errno == 1062) {
@@ -119,12 +119,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="col-lg-8 col-12 mx-auto">
                 <div class="custom-block custom-block-full">
                     <div class="custom-block-image-wrap">
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" class="custom-form contact-form" onsubmit="return redirectToHomepage()">
+                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" class="custom-form contact-form" >
                             <input type="file" name="profilepic" id="upload-input" accept="image/*" hidden>
                             <label for="upload-input" id="profile-pic-container">
+                            <?php if(isset($profilePic)): ?>
+                <!-- If a profile picture is uploaded, show the uploaded image -->
+                <img id="profile-pic" src="data:image/jpeg;base64,<?php echo base64_encode($profilePic); ?>" alt="Profile Picture">
+            <?php else: ?>
+                <!-- If no profile picture is uploaded, show the default image -->
                                 <img id="profile-pic" src="images/profileSignup.png" alt="Profile Picture">
                                 <span id="upload-icon">Click to Upload</span>
+                                <?php endif; ?>
                             </label>
+                            <div class="col-lg-6 col-md-6 col-12">
+           <!-- File path display -->
+    <p id="file-path-display">No profile picture selected</p>
+</div>
+
+<script>
+    document.getElementById('upload-input').addEventListener('change', function() {
+        // Get the selected file name
+        var fileName = this.files[0].name;
+        // Update the file path display
+        document.getElementById('file-path-display').innerText = fileName;
+    });
+</script>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-floating">
@@ -219,5 +238,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </body>
 </html>
+
 
 
