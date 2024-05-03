@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('connect.php');
 // Form submission handling
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -12,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $gender = $_POST['gender'];
     $bio = $_POST['bio'];
     $price = $_POST['price'];
+    
 
     // Check if a file is uploaded
     if(isset($_FILES['profilepic']) && $_FILES['profilepic']['error'] == UPLOAD_ERR_OK) {
@@ -36,8 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($conn->query($sql) === TRUE) {
         // Data inserted successfully
+        $_SESSION['tutor_email'] = $email;
         // Redirect or perform any other actions
         header('Location: tutorProfile.php');
+        exit();
     } else {
         // Check if the error is due to a duplicate entry
         if ($conn->errno == 1062) {
@@ -197,7 +201,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </div>
                                     <div class="col-lg-4 col-12 ms-auto">
                                         <button type="submit" class="form-control" >Sign Up</button>
-                                        <label id="link1">Already have an account? <a href="login.html" id="link2">Log in</a></label>
+                                        <label id="link1">Already have an account? <a href="login.php" id="link2">Log in</a></label>
                                     </div>
                                 </div>
                             </form>

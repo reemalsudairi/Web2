@@ -12,8 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows > 0) {
         $_SESSION['email'] = $email;
-        $_SESSION['userType'] = 'tutor';
-        header("Location: signupTutor.php"); // Redirect to the tutor's homepage
+        $_SESSION['tutor_email'] = $email;
+        header("Location: tutorProfile.php"); // Redirect to the tutor's homepage
         exit();
     } else {
         // If not a tutor, check if user is a learner
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result->num_rows > 0) {
             $_SESSION['email'] = $email;
-            $_SESSION['userType'] = 'learner';
+            $_SESSION['learner_email'] = $email;
             header("Location: signuplearner.php"); // Redirect to the learner's homepage
             exit();
         } else {

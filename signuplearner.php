@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('connect.php');
 // Form submission handling
 
@@ -33,7 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->query($sql) === TRUE) {
         // Data inserted successfully
         // Redirect or perform any other actions
+        $_SESSION['learner_email'] = $email;
         header('Location: signupTutor.php');
+        exit();
     } else {
         // Check if the error is due to a duplicate entry
         if ($conn->errno == 1062) {
@@ -221,7 +224,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
                                             <div class="col-lg-4 col-12 ms-auto">
                                                 <button type="submit" class="form-control">Sign Up</button>
-                                                <label id="link1">Already have an account? <a href="login.html" id="link2">Log in</a></label>
+                                                <label id="link1">Already have an account? <a href="login.php" id="link2">Log in</a></label>
                                             </div>
         
                                         </div>
