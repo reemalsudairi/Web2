@@ -188,7 +188,6 @@ $resultRejected = mysqli_query($conn, $sqlRejected);*/
                     echo '</small>';
                     echo '</div>';
                     echo '<div class="profile-block d-flex">';
-                    echo '<img src="#" class="profile-block-image img-fluid" alt="">';
                     echo '<p class="namebesideflag">' . $Fname. '</p>';
                     echo '</div>';
                     echo '<p class="mb-0 languagetext">Language: ' . $language . '</p>';
@@ -224,9 +223,6 @@ $resultRejected = mysqli_query($conn, $sqlRejected);*/
                     echo '<a href="detail-page.html" class="custom-block-image-wrap"></a>';
                     echo '<img src=' . $profilepic . ' class="custom-block-image img-fluid" alt="">';
                     echo '</div>';
-                    echo '<div class="mt-2">';
-                    echo '<a href="payment.html" class="btn custom-btn" style="margin-left: 7px;">Pay now</a>';
-                    echo '</div>';
                     echo '</div>';
                     echo '<div class="custom-block-info">';
                     echo '<div class="custom-block-top d-flex mb-1">';
@@ -236,7 +232,7 @@ $resultRejected = mysqli_query($conn, $sqlRejected);*/
                     echo '</small>';
                     echo '</div>';
                     echo '<div class="profile-block d-flex">';
-                    echo '<img src="/*images/uk.jpeg*/" class="profile-block-image img-fluid" alt="">';
+                    
                     echo '<p class="namebesideflag">' . $Fname. '</p>';
                     echo '</div>';
                     echo '<p class="mb-0 languagetext">Language: ' . $language . '</p>';
@@ -284,7 +280,7 @@ $resultRejected = mysqli_query($conn, $sqlRejected);*/
                     echo '</small>';
                     echo '</div>';
                     echo '<div class="profile-block d-flex">';
-                    echo '<img src="/*images/uk.jpeg*/" class="profile-block-image img-fluid" alt="">';
+                    
                     echo '<p class="namebesideflag">' . $Fname . '</p>';
                     echo '</div>';
                     echo '<p class="mb-0 languagetext">Language: ' . $language . '</p>';
