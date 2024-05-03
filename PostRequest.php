@@ -1,5 +1,6 @@
 <?php
 session_start();
+require('connect.php');
 
 // Retrieve form data
 $stime = $_POST['requestTime'];
@@ -12,20 +13,6 @@ $proficiency = $_POST['proficiency'];
 // Get the learner and tutor email from session variables
 $lemail = $_SESSION['learner_email'];
 $temail = $_SESSION['tutor_email'];
-
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "tutorverse";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
 // Retrieve the maximum rID from the table
 $sql_max_rid = "SELECT MAX(rID) AS max_rid FROM request";

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require('connect.php');
+
 // Form submission handling
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fname = $_POST['firstname'];
@@ -13,26 +14,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $gender = $_POST['gender'];
     $bio = $_POST['bio'];
     $price = $_POST['price'];
-    
 
     // Check if a file is uploaded
     if(isset($_FILES['profilepic']) && $_FILES['profilepic']['error'] == UPLOAD_ERR_OK) {
-        // Get the temporary file path
-        $file_tmp_name = $_FILES['profilepic']['tmp_name'];
-        
-        // Read file content
-        $profilePic = file_get_contents($file_tmp_name);
+        // Define the directory to store uploaded profile pictures
+        $upload_directory = 'profile_pics/';
 
-        // Escape special characters to prevent SQL injection
-        $profilePic = $conn->real_escape_string($profilePic);
+        // Generate a unique filename
+        $profile_pic_filename = uniqid() . '_' . $_FILES['profilepic']['name'];
+
+        // Move the uploaded file to the upload directory
+        if(move_uploaded_file($_FILES['profilepic']['tmp_name'], $upload_directory . $profile_pic_filename)) {
+            // Construct the profile picture URL
+            $profilePic = $upload_directory . $profile_pic_filename;
+        } else {
+            // If failed to move the file, use default profile picture
+            $profilePic = 'images/profilepic2.jpg';
+        }
     } else {
-        // If no file is uploaded, load the default profile picture
-        $defaultProfilePic = file_get_contents('images/profilepic2.jpg');
-
-        // Escape special characters to prevent SQL injection
-        $profilePic = $conn->real_escape_string($defaultProfilePic);
+        // If no file is uploaded, use default profile picture
+        $profilePic = 'images/profilepic2.jpg';
     }
-    
+
     // SQL to insert data into tutor table
     $sql = "INSERT INTO tutor (Fname, Lname, email, city, phone, password, age, gender, bio, price, profilepic) VALUES ('$fname', '$lname', '$email', '$city', '$phone', '$password', '$age', '$gender', '$bio', '$price', '$profilePic')";
 
@@ -55,6 +58,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+
+
+
 
 
 <!DOCTYPE html>
@@ -123,31 +129,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="col-lg-8 col-12 mx-auto">
                 <div class="custom-block custom-block-full">
                     <div class="custom-block-image-wrap">
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" class="custom-form contact-form" >
-                            <input type="file" name="profilepic" id="upload-input" accept="image/*" hidden>
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" class="custom-form contact-form" enctype="multipart/form-data">
+                        <input type="file" name="profilepic" id="upload-input" accept="image/*" hidden>
                             <label for="upload-input" id="profile-pic-container">
-                            <?php if(isset($profilePic)): ?>
-                <!-- If a profile picture is uploaded, show the uploaded image -->
-                <img id="profile-pic" src="data:image/jpeg;base64,<?php echo base64_encode($profilePic); ?>" alt="Profile Picture">
-            <?php else: ?>
-                <!-- If no profile picture is uploaded, show the default image -->
-                                <img id="profile-pic" src="images/profileSignup.png" alt="Profile Picture">
-                                <span id="upload-icon">Click to Upload</span>
+                                <?php if(isset($profilePic)): ?>
+                                    <!-- If a profile picture is uploaded, show the uploaded image -->
+                                    <img id="profile-pic" src="<?php echo $profilePic; ?>" alt="Profile Picture">
+                                <?php else: ?>
+                                    <!-- If no profile picture is uploaded, show the default image -->
+                                    <img id="profile-pic" src="images/profileSignup.png" alt="Profile Picture">
+                                    <span id="upload-icon">Click to Upload</span>
                                 <?php endif; ?>
                             </label>
                             <div class="col-lg-6 col-md-6 col-12">
-           <!-- File path display -->
-    <p id="file-path-display">No profile picture selected</p>
-</div>
+                                <!-- File path display -->
+                                <p id="file-path-display">No profile picture selected</p>
+                            </div>
 
-<script>
-    document.getElementById('upload-input').addEventListener('change', function() {
-        // Get the selected file name
-        var fileName = this.files[0].name;
-        // Update the file path display
-        document.getElementById('file-path-display').innerText = fileName;
-    });
-</script>
+                            <script>
+                                document.getElementById('upload-input').addEventListener('change', function() {
+                                    // Get the selected file name
+                                    var fileName = this.files[0].name;
+                                    // Update the file path display
+                                    document.getElementById('file-path-display').innerText = fileName;
+
+                                    // Preview the selected image
+                                    var reader = new FileReader();
+                                    reader.onload = function(e) {
+                                        document.getElementById('profile-pic').src = e.target.result;
+                                    }
+                                    reader.readAsDataURL(this.files[0]);
+                                });
+                            </script>
+
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-floating">
