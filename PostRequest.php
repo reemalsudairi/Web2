@@ -1,3 +1,48 @@
+<?php
+session_start();
+require('connect.php');
+
+// Retrieve form data
+$stime = $_POST['requestTime'];
+$date = $_POST['lesson-date'];
+$duration = $_POST['session-duration'];
+$language = $_POST['language'];
+$proficiency = $_POST['proficiency'];
+
+
+// Get the learner and tutor email from session variables
+$lemail = $_SESSION['learner_email'];
+$temail = $_SESSION['tutor_email'];
+
+// Retrieve the maximum rID from the table
+$sql_max_rid = "SELECT MAX(rID) AS max_rid FROM request";
+$result_max_rid = $conn->query($sql_max_rid);
+$row = $result_max_rid->fetch_assoc();
+$max_rid = $row['max_rid'];
+
+// Generate the new rID
+if ($max_rid === null) {
+    // If there are no existing records, start from 1
+    $new_rid = 1;
+} else {
+    // Increment the maximum rID by 1
+    $new_rid = $max_rid + 1;
+}
+
+// Insert data into the database
+$sql = "INSERT INTO request (rID, Lemail, Temail, remainingT, status, Stime, date, duration, language)
+        VALUES ('$new_rid', '$lemail', '$temail', '24', 'pending', '$stime', '$date', '$duration', '$language')";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Session request posted successfully.";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+// Close the database connection
+$conn->close();
+?>
+
 
 <!doctype html>
 <html lang="en">
@@ -213,3 +258,5 @@
     </body>
 
 </html>
+
+

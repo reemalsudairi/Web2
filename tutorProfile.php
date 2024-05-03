@@ -3,7 +3,7 @@ session_start();
 require('connect.php');
 
 // Retrieve tutor information
-$email = $_SESSION['email'];
+$email = $_SESSION['tutor_email'];
 $sql = "SELECT * FROM `tutor` WHERE email = '$email'";
 $result = mysqli_query($conn, $sql);
 
@@ -17,6 +17,7 @@ if (mysqli_num_rows($result) > 0) {
     $phone = $row['phone'];
     $bio = $row['bio'];
     $password = $row['password'];
+    $profilePic = $row['profilepic'];
 } else {
     echo "Tutor not found.";
 }
@@ -56,6 +57,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo '<script>alert("Email already in use. Please choose another email."); window.location.href="tutorProfile.php";</script>';
             exit;
         }
+
+          // Check if a new profile picture is uploaded
+    if(isset($_FILES['new-profile-pic']) && $_FILES['new-profile-pic']['error'] == UPLOAD_ERR_OK) {
+        // Get the temporary file path
+        $file_tmp_name = $_FILES['new-profile-pic']['tmp_name'];
+        
+        // Read file content
+        $newProfilePic = file_get_contents($file_tmp_name);
+
+        // Escape special characters to prevent SQL injection
+        $newProfilePic = $conn->real_escape_string($newProfilePic);
+
+        // Update the profile picture in the database
+        $updatePicSql = "UPDATE tutor SET profilepic = '$newProfilePic' WHERE email = '$email'";
+        if ($conn->query($updatePicSql) === TRUE) {
+            // Profile picture updated successfully
+            $profilePic = $newProfilePic; // Update the profile picture variable
+        } else {
+            // Handle error
+            echo "Error updating profile picture: " . $conn->error;
+        }
+    }
 
         $sql = "UPDATE `tutor` SET email = '$new_email', Fname = '$fname', Lname = '$lname', gender = '$gender', age = '$age', city = '$city', phone = '$phone', bio = '$bio', password = '$password' WHERE email = '$old_email'";
         $result = mysqli_query($conn, $sql);
@@ -175,6 +198,23 @@ $conn->close();
                             
                             <!-- Tutor Profile Information -->
                             <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+
+<label for="upload-input" id="profile-pic-container">
+    <?php if(isset($newProfilePic)): ?>
+        <!-- If a new profile picture is uploaded, show the new image -->
+        <img src="data:image/jpeg;base64,<?php echo base64_encode($newProfilePic); ?>" alt="Profile Picture" width="150" height="150" >
+    <?php elseif(isset($profilePic)): ?>
+        <!-- If a profile picture is available, show the existing image -->
+        <img src="data:image/jpeg;base64,<?php echo base64_encode($profilePic); ?>" alt="Profile Picture" width="150" height="150">
+    <?php else: ?>
+        <!-- If no profile picture is available, show a default image -->
+        <img src="images/default-profile-pic.jpg" alt="Profile Picture" width="150" height="150">
+    <?php endif; ?>
+    <input type="file" name="new-profile-pic" id="new-profile-pic" accept="image/*" >
+
+    </label>
+    <br>
+
                                 <p>First Name: <input type="text" name="firstname" value="<?php echo $fname; ?>"><i class="bi bi-pencil-square"></i></p>
                                 <p>Last Name: <input type="text" name="lastname" value="<?php echo $lname; ?>"><i class="bi bi-pencil-square"></i></p>
                                 <p>Age: <input type="text" name="age" value="<?php echo $age; ?>"><i class="bi bi-pencil-square"></i></p>
