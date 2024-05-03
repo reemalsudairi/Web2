@@ -1,5 +1,5 @@
 <?php
-// Database connection
+//Database connection
 session_start();
 $servername = "localhost";
 $username = "root";
@@ -232,7 +232,6 @@ $resultRejected = mysqli_query($conn, $sqlRejected);*/
                     echo '</small>';
                     echo '</div>';
                     echo '<div class="profile-block d-flex">';
-                    
                     echo '<p class="namebesideflag">' . $Fname. '</p>';
                     echo '</div>';
                     echo '<p class="mb-0 languagetext">Language: ' . $language . '</p>';
@@ -280,7 +279,6 @@ $resultRejected = mysqli_query($conn, $sqlRejected);*/
                     echo '</small>';
                     echo '</div>';
                     echo '<div class="profile-block d-flex">';
-                    
                     echo '<p class="namebesideflag">' . $Fname . '</p>';
                     echo '</div>';
                     echo '<p class="mb-0 languagetext">Language: ' . $language . '</p>';
