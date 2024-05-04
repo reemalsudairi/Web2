@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($delete_result) {
             // Redirect user to sign out after successful deletion
             header("Location: signupTutot.php");
-            exit;
+            exit();
         } else {
             echo "Error deleting account: " . mysqli_error($conn);
             exit;
@@ -86,7 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result) {
             $_SESSION['email'] = $new_email;
             echo '<script>alert("Profile updated successfully!"); window.location.href="tutorProfile.php";</script>';
-            exit;
         } else {
             echo "Error updating profile: " . mysqli_error($conn);
         }
@@ -198,22 +197,41 @@ $conn->close();
                             
                             <!-- Tutor Profile Information -->
                             <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-
-<label for="upload-input" id="profile-pic-container">
+                            <label for="upload-input" id="profile-pic-container">
     <?php if(isset($newProfilePic)): ?>
-        <!-- If a new profile picture is uploaded, show the new image -->
-        <img src="data:image/jpeg;base64,<?php echo base64_encode($newProfilePic); ?>" alt="Profile Picture" width="150" height="150" >
+        <img id="profile-pic" src="<?php echo $newProfilePic; ?>" alt="Profile Picture" width="150" height="150">
     <?php elseif(isset($profilePic)): ?>
-        <!-- If a profile picture is available, show the existing image -->
-        <img src="data:image/jpeg;base64,<?php echo base64_encode($profilePic); ?>" alt="Profile Picture" width="150" height="150">
-    <?php else: ?>
-        <!-- If no profile picture is available, show a default image -->
-        <img src="images/default-profile-pic.jpg" alt="Profile Picture" width="150" height="150">
+        <img id="profile-pic" src="<?php echo $profilePic; ?>" alt="Profile Picture" width="150" height="150">
     <?php endif; ?>
-    <input type="file" name="new-profile-pic" id="new-profile-pic" accept="image/*" >
+    <input type="file" name="new-profile-pic" id="upload-input" accept="image/*" hidden>
+    <span id="file-path-display">Click to change profile picture</span>
+</label>
+<br>
 
-    </label>
-    <br>
+
+<script>
+document.getElementById('upload-input').addEventListener('change', function() {
+    if (this.files.length === 0) {
+        document.getElementById('file-path-display').innerText = 'No file selected';
+        return;
+    }
+
+    var file = this.files[0];
+
+    if (file.type.startsWith('image/')) {
+        var fileName = file.name;
+        document.getElementById('file-path-display').innerText = fileName;
+
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('profile-pic').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        document.getElementById('file-path-display').innerText = 'Please select an image file.';
+    }
+});
+</script>
 
                                 <p>First Name: <input type="text" name="firstname" value="<?php echo $fname; ?>"><i class="bi bi-pencil-square"></i></p>
                                 <p>Last Name: <input type="text" name="lastname" value="<?php echo $lname; ?>"><i class="bi bi-pencil-square"></i></p>

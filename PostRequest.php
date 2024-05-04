@@ -144,7 +144,7 @@ $conn->close();
                         </div>
                         <div class="container">
                             <div class="custom-block custom-block-full">
-                                <form action="#" method="post">
+                                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                     <div class="container">
                                         <div class="row">
                                             <div class="custom-form">
