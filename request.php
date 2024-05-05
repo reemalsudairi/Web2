@@ -159,13 +159,14 @@ $resultRejected = mysqli_query($conn, $sqlRejected);*/
                 while ($row = mysqli_fetch_assoc($resultPending)) {
                     // Extract request details
                     $timeRemaining = $row['remainigT'];
-                    $learnerName = $row['Lemail']; // Assuming Lemail is the learner's name
+                    $learnerEmail = $row['Lemail']; // Assuming Lemail is the learner's name
                     $language = $row['language'];
                     $date = $row['date'];
                     $time = $row['Stime'];
                     $duration = $row['duration'];
                     $profilepic=$row['profilepic'];
                     $Fname=$row['Fname'];
+                    $Temail=$row['Temail'];
                     // Display pending request block
                     echo '<div class="col-lg-4 col-md-6 col-sm-12 mb-4">';
                     echo '<div class="custom-block d-flex">';
@@ -177,7 +178,7 @@ $resultRejected = mysqli_query($conn, $sqlRejected);*/
                     echo '</div>';
                     echo '<div class="mt-2 buttonsbesideeachother">';
                     echo '<a href="EditRequest.html" class="btn custom-btn customedit-btn" style="margin:1px;">Edit</a>';
-                    echo '<a href="#" class="btn custom-btn customreject-btn" style="margin:1px;">Delete</a>';
+                    echo '<a href="deleteRequest.php?delete_request_stime=' . $time . '&delete_request_date=' . $date . '&delete_request_lemail=' . $learnerEmail . '&delete_request_temail=' . $Temail . '" onclick="return confirm(\'Are you sure you want to delete this request?\')">Delete</a>';
                     echo '</div>';
                     echo '</div>';
                     echo '<div class="custom-block-info">';
