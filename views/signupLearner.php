@@ -27,7 +27,7 @@
 
             // Prepare and bind
             $stmt = $pdo->prepare("INSERT INTO users (emailID, isTutor, isLearner, password) VALUES (?, ?, ?, ?)");
-            $stmt->execute([$email, FALSE, TRUE, $password]);
+            $stmt->execute([$email, 0, 1, $password]);
 
             $stmt2 = $pdo->prepare("INSERT INTO learner (Fname, Lname, email, profilepic, city, location) VALUES (?, ?, ?, ?, ?, ?)");
             $stmt2->execute([$firstname, $lastname, $email, $imageBlob, $city, $location]);

@@ -2,6 +2,8 @@
     include '../src/dbConnect.php';
     session_start();
 
+    $errorMsg = ''; // Initialize an empty string to hold potential error messages
+
     // Handle signup submission
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $firstname = $_POST['firstname'];
@@ -31,7 +33,7 @@
 
             // Prepare and bind
             $stmt = $pdo->prepare("INSERT INTO users (emailID, isTutor, isLearner, password) VALUES (?, ?, ?, ?)");
-            $stmt->execute([$email, TRUE, FALSE, $password]);
+            $stmt->execute([$email, 1, 0, $password]);
 
             $stmt2 = $pdo->prepare("INSERT INTO tutor (Fname, Lname, age, gender, city, email, price, bio, phone, profilepic) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt2->execute([$firstname, $lastname, $age, $gender, $city, $email, $price, $bio, $phoneNumber, $imageBlob]);
@@ -42,7 +44,8 @@
             header("Location: tutorHomePage.php"); // Adjust this to your target page
             exit;
         }catch(Exception $e) {
-            echo "Database error:  " . $e->getMessage();
+            // echo "Database error:  " . $e->getMessage();
+            $errorMsg = "Database error: " . $e->getMessage();
         }
     }
 
@@ -107,7 +110,7 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-lg-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="mainHome.html">Home</a>
+                                <a class="nav-link" href="../public/index.php">Home</a>
                             </li> <!--لينك صفحة الهوم-->
 
 
@@ -153,7 +156,7 @@
 
                                 <div class="custom-block custom-block-full">
                                     <div class="custom-block-image-wrap">
-                                        <form action="#" method="post" class="custom-form contact-form" onsubmit="return redirectToHomepage()">
+                                        <form action="#" method="post" class="custom-form contact-form">
                                             <input type="file" id="upload-input" name="profilePic" accept="image/*" hidden>
                                             <label for="upload-input" id="profile-pic-container">
                                                 <img id="profile-pic" src="../public/images/profileSignup.png" alt="Profile Picture" onclick="document.getElementById('upload-input').click();">
@@ -254,7 +257,16 @@
 
                                                 </div>
             
-                        
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <!-- Error Message Display -->
+                                                        <?php if (!empty($errorMsg)): ?>
+                                                        <div class="alert alert-danger" role="alert">
+                                                            <?php echo $errorMsg; ?>
+                                                        </div>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
                                 
             
                                             </div>

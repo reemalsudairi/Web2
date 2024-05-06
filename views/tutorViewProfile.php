@@ -173,7 +173,7 @@
                                 <ul class="dropdown-menu dropdown-menu-light" >
                                     <li><a class="dropdown-item" href="tutorViewProfile.php">View Profile</a></li>
                                     <li><a class="dropdown-item" href="viewTutorRequests.php">View Requests</a></li>
-                                    <li><a class="dropdown-item" href="viewreviews.html">View Reviews</a></li>
+                                    <li><a class="dropdown-item" href="viewTutorReviews.php">View Reviews</a></li>
                                     <li><a class="dropdown-item" href="../public/index.php">Sign out</a></li>
                                 </ul>
                             </li>

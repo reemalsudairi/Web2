@@ -12,6 +12,134 @@
         echo "Database error:  " . $e->getMessage();
         $rows = [];
     }
+
+    try {
+        $stmt = $pdo->prepare("SELECT l.*, p.* FROM learner l INNER JOIN postrequest p ON l.email = p.Lemail WHERE p.Temail = ?");
+        $stmt->execute([$_SESSION['user_email']]);
+        $ReqLearners = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (Exception $e) {
+        echo "Database error: " . $e->getMessage();
+        $Lreq = [];
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] == 'save') {
+
+        // Handle form submission
+        $reqID = $_POST['reqID'];
+        $learnerMail = $_POST['learnerMail'];
+        $userMail = $_SESSION['user_email'];
+        
+        try {
+            // Prepare the query to fetch the request details
+            $stmt = $pdo->prepare("SELECT * FROM postrequest WHERE postReqID = :reqID");
+            $stmt->execute([':reqID' => $reqID]); // Bind parameter correctly using associative array
+            $reqPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Check if any post requests were fetched and then proceed
+            if ($reqPosts) {
+                $reqPost = $reqPosts[0]; // Assuming you are fetching one post by ID, get the first result.
+
+                // Now prepare the insert statement
+                $stmt2 = $pdo->prepare("INSERT INTO request (Stime, date, duration, status, language, remainingT, Lemail, Temail) VALUES (:Stime, :date, :duration, :status, :language, :remainingT, :Lemail, :Temail)");
+
+                // Execute the insert statement with parameters bound
+                $stmt2->execute([
+                    ':Stime' => $reqPost['Stime'],
+                    ':date' => $reqPost['date'],
+                    ':duration' => $reqPost['requestDuration'],
+                    ':status' => "Accepted",
+                    ':language' => $reqPost['language'],
+                    ':remainingT' => $reqPost['Stime'], // This should possibly be a different value?
+                    ':Lemail' => $reqPost['Lemail'],
+                    ':Temail' => $reqPost['Temail']
+                ]);
+
+                $stmt3 = $pdo->prepare("INSERT INTO session (date, Stime, duration, status, language, Lemail, Temail) VALUES (:Stime, :date, :duration, :status, :language, :Lemail, :Temail)");
+                $stmt3->execute([
+                    ':Stime' => $reqPost['Stime'],
+                    ':date' => $reqPost['date'],
+                    ':duration' => $reqPost['requestDuration'],
+                    ':status' => "Accepted",
+                    ':language' => $reqPost['language'],
+                    ':Lemail' => $reqPost['Lemail'],
+                    ':Temail' => $reqPost['Temail']
+                ]);
+
+                // If update is successful, proceed to delete the request from 'postrequest'
+                $stmt4 = $pdo->prepare("DELETE FROM postrequest WHERE postReqID = :reqID");
+                $stmt4->execute([':reqID' => $reqID]);
+
+                $success = "Request updated successfully!";
+            } else {
+                $success = "No post request found with the specified ID.";
+            }
+
+            // echo $success;
+
+
+            // Redirect to the same page to refresh and show the success message
+            header('Location: '.$_SERVER['PHP_SELF']);
+            exit();
+
+        } catch(Exception $e) {
+            $error = "Error updating request: " . $e->getMessage();
+        }
+    }
+    else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] == 'delete') {
+        // echo "Delete triggered";
+        // Handle form submission
+        $reqID = $_POST['reqID'];
+        $learnerMail = $_POST['learnerMail'];
+        $userMail = $_SESSION['user_email'];
+        try {
+            $stmt = $pdo->prepare("SELECT * FROM postrequest WHERE postReqID = :reqID");
+            $stmt->execute([':reqID' => $reqID]); // Bind parameter correctly using associative array
+            $reqPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Check if any post requests were fetched and then proceed
+            if ($reqPosts) {
+                $reqPost = $reqPosts[0]; // Assuming you are fetching one post by ID, get the first result.
+
+                // Now prepare the insert statement
+                $stmt2 = $pdo->prepare("INSERT INTO request (Stime, date, duration, status, language, remainingT, Lemail, Temail) VALUES (:Stime, :date, :duration, :status, :language, :remainingT, :Lemail, :Temail)");
+
+                // Execute the insert statement with parameters bound
+                $stmt2->execute([
+                    ':Stime' => $reqPost['Stime'],
+                    ':date' => $reqPost['date'],
+                    ':duration' => $reqPost['requestDuration'],
+                    ':status' => "Rejected",
+                    ':language' => $reqPost['language'],
+                    ':remainingT' => $reqPost['Stime'], // This should possibly be a different value?
+                    ':Lemail' => $reqPost['Lemail'],
+                    ':Temail' => $reqPost['Temail']
+                ]);
+
+                // If update is successful, proceed to delete the request from 'postrequest'
+                $stmt3 = $pdo->prepare("DELETE FROM postrequest WHERE postReqID = :reqID");
+                $stmt3->execute([':reqID' => $reqID]);
+
+                $success = "Request updated successfully!";
+            } else {
+                $success = "No post request found with the specified ID.";
+            }
+
+        } catch(Exception $e) {
+            $error = "Error updating request: " . $e->getMessage();
+        }
+    }
+
+    try {
+        $stmt = $pdo->prepare("SELECT l.*, s.* FROM learner l INNER JOIN session s ON l.email = s.Lemail WHERE status = 'Accepted' AND s.Temail = ?");
+        $stmt->execute([$_SESSION['user_email']]);
+        $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (Exception $e) {
+        echo "Database error: " . $e->getMessage();
+        $Lreq = [];
+    }
+
 ?>
 <!-- HTML Code -->
 <!doctype html>
@@ -81,7 +209,7 @@
                                 <ul class="dropdown-menu dropdown-menu-light" >
                                     <li><a class="dropdown-item" href="tutorViewProfile.php">View Profile</a></li>
                                     <li><a class="dropdown-item" href="viewTutorRequests.php">View Requests</a></li>
-                                    <li><a class="dropdown-item" href="viewreviews.html">View Reviews</a></li>
+                                    <li><a class="dropdown-item" href="viewTutorReviews.php">View Reviews</a></li>
                                     <li><a class="dropdown-item" href="../public/index.php">Sign out</a></li>
                                 </ul>
                             </li>
@@ -129,7 +257,8 @@
                                 <h4 class="section-title">My Sessions</h4>
                             </div>
                             <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            
+                            <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                                 <div class="custom-block d-flex">
                                     <div class="">
                                         <div class="custom-block-icon-wrap">
@@ -240,14 +369,59 @@
                                         <p class="mb-0" style="font-size:small;"><strong>Language: English</strong><br>Date:22/2/2024 <br> Time: 8:00pm <br> Proficiency: Advanced</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
+
+                                <?php foreach ($sessions as $session): ?>
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="custom-block d-flex">
+                                            <div class="">
+                                                <div class="custom-block-icon-wrap">
+                                                    <div class="section-overlay"></div>
+                                                        <!-- <img src="../public/images/profilepic2.jpg" class="custom-block-image img-fluid" alt=""> -->
+                                                        <?php if (isset($session['profilePic']) && $session['profilePic']): ?>
+                                                            <img src="data:image/jpeg;base64,<?php echo base64_encode($session['profilePic']); ?>" class="custom-block-image img-fluid" alt="Profile Picture">
+                                                        <?php else: ?>
+                                                            <img src="../public/images/profilepic2.jpg" class="custom-block-image img-fluid" alt="Default Profile Picture">
+                                                        <?php endif; ?>
+                                                        <a href="#" class="custom-block-icon">
+                                                            <i class="bi-play-fill"></i>
+                                                        </a>
+                                                </div>
+            
+                                                <div class="mt-2">
+                                                    <a href="mailto:<?php echo htmlspecialchars($session['Lemail']); ?>" class="btn custom-btn" style="margin-left: 7px">
+                                                        Contact
+                                                    </a>
+                                                </div>
+                                            </div>
+            
+                                            <div class="custom-block-info">
+                                                <div class="custom-block-top d-flex mb-1">
+                                                    <small class="me-4">
+                                                        <i class="bi-clock-fill custom-icon"></i>
+                                                        60 Minutes
+                                                    </small>
+            
+                                                </div>
+            
+                                                <div class="profile-block d-flex">
+            
+                                                    <p class="namebesideflag"><?php echo htmlspecialchars($session['Fname']); ?> &nbsp; <?php echo htmlspecialchars($session['Lname']); ?></p>
+                                                </div>
+                                                <p class="mb-0" style="font-size:small;"><strong>Language:  <?php echo htmlspecialchars($session['language']); ?></strong><br>Date:<?php echo htmlspecialchars($session['date']); ?> <br> Time:  <?php echo htmlspecialchars($session['duration']); ?> 
+                                                <!-- <br> Proficiency: Advanced -->
+                                            </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
                             </div>
                         </div> 
-                        <div class="col-lg-2 col-12 ms-auto">
+                        <!-- <div class="col-lg-2 col-12 ms-auto">
                             <a href="TutorSession.html" class="btn custom-btn">
                                 View more
                             </a>
-                        </div>  
+                        </div>   -->
                     </div>
                 </div>  
             </div>
@@ -274,7 +448,7 @@
 
                                     <!--request1-->
                         
-                            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                                 <div class="custom-block d-flex">
                                     <div class="">
                                         
@@ -321,14 +495,12 @@
                                 </div>
                             </div>
 
-                            <!--request 2-->
                             <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                                 <div class="custom-block d-flex">
                                     <div class="">
                                         <div class="custom-block-icon-wrap">
                                             
                                             <a class="custom-block-image-wrap">
-                                                <!--img-fluid-->
                                                 <img src="../public/images/profilepic2.jpg" class="custom-block-image2  img-fluid" alt="">
 
                                             </a>
@@ -368,14 +540,12 @@
                                 </div>
                             </div>
 
-                            <!--request 3-->
                             <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                                 <div class="custom-block d-flex">
                                     <div class="">
                                         <div class="custom-block-icon-wrap">
                                             
                                             <a class="custom-block-image-wrap">
-                                                <!--img-fluid-->
                                                 <img src="../public/images/Henry_Cao-Web.jpeg" class="custom-block-image2  img-fluid" alt="">
 
                                             </a>
@@ -418,7 +588,65 @@
                                 <a href="requestacceptreject.html" class="btn custom-btn">
                                     View more
                                 </a>
-                            </div>  
+                            </div>   -->
+                        
+                        <div class="row">
+                            <?php foreach ($ReqLearners as $ReqLearner): ?>
+                            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                    <div class="custom-block d-flex">
+                                        <form action="" method="post">
+                                        <div class="">
+                                            <div class="custom-block-icon-wrap">
+                                                
+                                                <a class="custom-block-image-wrap">
+                                                <?php if (isset($ReqLearner['profilePic']) && $ReqLearner['profilePic']): ?>
+                                                    <img src="data:image/jpeg;base64,<?php echo base64_encode($ReqLearner['profilePic']); ?>" class="custom-block-image img-fluid" alt="Profile Picture">
+                                                <?php else: ?>
+                                                    <img src="../public/images/profilepic2.jpg" class="custom-block-image img-fluid" alt="Default Profile Picture">
+                                                <?php endif; ?>
+
+                                                </a>
+                                            </div>
+        
+                                            <div class="mt-2 buttonsbesideeachother">
+                                                <button type ="submit" name="action" value="save" class="btn custom-btn customaccept-btn" style="margin:1px;" >
+                                                    Accept 
+                                                </button> 
+
+                                                <button type="submit" name="action" value="delete" class="btn custom-btn customreject-btn" style="margin:1px;">
+                                                    Reject
+                                                </button>
+                                            </div>
+                                        </div>
+        
+                                        <div class="custom-block-info">
+                                            <div class="custom-block-top d-flex mb-1">
+                                                <small class="me-4">
+                                                    <i class="bi-hourglass-bottom custom-icon"></i>
+                                                    60 Minutes Remaining
+                                                </small>
+        
+                                            </div>
+        
+                                            <div class="profile-block d-flex">
+        
+                                                <p class="namebesideflag"><?php echo htmlspecialchars($ReqLearner['Fname']); ?> &nbsp; <?php echo htmlspecialchars($ReqLearner['Lname']); ?></p>
+                                                <input type="text" name="learnerMail" value="<?php echo htmlspecialchars($ReqLearner['email']); ?>" hidden>
+                                                <input type="text" name="reqID" value="<?php echo htmlspecialchars($ReqLearner['postReqID']); ?>" hidden>
+                                            </div>
+                                            <p class="mb-0 languagetext">Language: <?php echo htmlspecialchars($ReqLearner['language']); ?></p>
+                                            <p class="mb-0 smallfont">Date: <?php echo htmlspecialchars($ReqLearner['date']); ?> <br> Time: <?php echo htmlspecialchars($ReqLearner['requestDuration']); ?> <br> Proficiency: <?php echo htmlspecialchars($ReqLearner['Lproficiency']); ?><br> <i class="bi-clock-fill custom-icon "></i> <?php echo htmlspecialchars($ReqLearner['Stime']); ?>  Minutes<br> status: <a class="custompending-btn accrejtag">
+                                                Pending
+                                            </a></p>
+        
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                        
+                        
                     </div>
                 </div>
             </div>

@@ -20,21 +20,6 @@
         $stmt = $pdo->prepare("SELECT * FROM tutor WHERE email = ?");
         $stmt->execute([$tutorId]); 
         $tutor = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        $stmt2 = $pdo->prepare("SELECT AVG(rating) AS averageRating FROM review WHERE Temail = ?");
-        // Execute the query with the bound parameter
-        $stmt2->execute([$tutorId]);
-        
-        // Fetch the result
-        $rating = $stmt2->fetch(PDO::FETCH_ASSOC);
-        // Check if a result was returned
-        if ($rating && !is_null($rating['averageRating'])) {
-            $averageRating = number_format($rating['averageRating'], 1);  // Formats the number to one decimal place
-            // echo "The average rating for $tutorId is $averageRating.";
-        } else {
-            echo "No ratings found for $tutorId.";
-        }
-
         if (!$tutor) {
             echo "No details found for the selected tutor.";
         }
@@ -42,29 +27,26 @@
         echo "No tutor selected.";
     }
 
-    function generateStarRating($rating) {
-        $output = '';
-        $fullStars = floor($rating); // Number of full stars
-        $halfStar = ($rating - $fullStars >= 0.75) ? 1 : ($rating - $fullStars >= 0.25 ? 0.5 : 0); // Check if there should be a half star
-        $emptyStars = 5 - $fullStars - ceil($halfStar); // Remaining stars are empty
+    // Handle signup submission
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $rating = $_POST['rating'];
+        $message = $_POST['message'];
+        $Lemail = $_SESSION['user_email'];
+        $Temail = $_GET['tutor_id'];
 
-        // Add full stars to output
-        for ($i = 0; $i < $fullStars; $i++) {
-            $output .= '★';
+        try {
+
+            // Prepare and bind
+            $stmt = $pdo->prepare("INSERT INTO review (Lemail, Temail, rating, review) VALUES (?, ?, ?, ?)");
+            $stmt->execute([$Lemail, $Temail, $rating, $message]);
+
+
+            // Redirect to another page after successful signup
+            header("Location: learnerHomePage.php"); // Adjust this to your target page
+            exit;
+        }catch(Exception $e) {
+            echo "Database error:  " . $e->getMessage();
         }
-
-        // Add half star to output if applicable
-        if ($halfStar === 0.5) {
-            $output .= '☆'; // Assuming ☆ is half filled star; adjust if you have a specific half star character
-        }
-
-        // Add empty stars to output
-        for ($i = 0; $i < $emptyStars; $i++) {
-            $output .= '☆';
-        }
-
-        // Return the star output along with the numerical rating
-        return $output . ' ' . number_format($rating, 1);
     }
 
 ?>
@@ -78,7 +60,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Tutorverse - Tutor List</title>
+        <title> Tutorverse - Rate And Review</title>
 
         <!-- CSS FILES -->        
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -99,8 +81,6 @@
 
         <link rel="icon" type="img/png" href="../public/images/logo.png">
 
-       
-
     </head>
     <body>
 
@@ -120,7 +100,7 @@
                         <ul class="navbar-nav ms-lg-auto">
 
                             <li class="nav-item">
-                                <a class="nav-link " href="learnerHomepage.php">Home</a>
+                                <a class="nav-link " href="learnerHomePage.php">Home</a>
                             </li><!--لينك صفحة الهوم-->
 
                             <li class="nav-item dropdown">
@@ -136,9 +116,9 @@
                                     <img src="../public/images/profilePic.png"  class="logo-image img-fluid" alt="Photo"> 
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-light" >
-                                    <li><a class="dropdown-item" href="learnerViewProfile.php">View Profile</a></li>
-                                    <li><a class="dropdown-item" href="viewRequestsLearner.php">View Requests</a></li>
-                                    <li><a class="dropdown-item" href="../public/index.php">Sign out</a></li>
+                                    <li><a class="dropdown-item" href="learnerProfile.html">View Profile</a></li>
+                                    <li><a class="dropdown-item" href="ViewRequest.html">View Requests</a></li>
+                                    <li><a class="dropdown-item" href="mainHome.html">Sign out</a></li>
                                 </ul>
                             </li>
                             
@@ -161,50 +141,78 @@
                     </div>
                 </div>
             </header>
-<body>
-    <main>
-        <!-- Tutor Information Section -->
-        <div class="custom-block d-flex">
-            <div>
-                <div class="custom-block-icon-wrap">
-                    <div class="custom-block-image-wrap">
-                        <!-- <img src="profilepic2;" class="custom-block-image" alt="Tutor Image"> -->
-                        <?php if (isset($tutor['profilePic']) && $tutor['profilePic']): ?>
-                            <img src="data:image/jpeg;base64,<?php echo base64_encode($tutor['profilePic']); ?>" class="custom-block-image img-fluid" alt="Profile Picture">
-                        <?php else: ?>
-                            <img src="../public/images/profilepic2.jpg" class="custom-block-image img-fluid" alt="Default Profile Picture">
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="custom-block-info">
-                    <div class="profile-block d-flex">
-                        <span style="color: purple;" class="namebesideflag"><?php echo htmlspecialchars($tutor['Fname']); ?> &nbsp; <?php echo htmlspecialchars($tutor['Lname']); ?></span>
-                    </div>
-                    <a href="reviewsLearner.php?tutor_id=<?php echo urlencode($tutor['email']); ?>" class="rating ratingmargin"><?php
-                    // Assuming the average rating is fetched and stored in $averageRating
-                    if (isset($averageRating)) {
-                        $stars = generateStarRating($averageRating);
-                        echo "<p>$stars</p>";
-                    } else {
-                        echo "<p>No ratings available.</p>";
-                    }
-                    ?> </a>
-                    <p class="bi-cash-coin purple"><?php echo htmlspecialchars($tutor['price']); ?>/hr</p>
-                    <p class="mb-0"><?php echo htmlspecialchars($tutor['bio']); ?></p>
-                    <div class="mt-2">
-                        <a href="postRequestLearner.php?tutor_id=<?php echo urlencode($tutor['email']); ?>" class="btn custom-btn">Post request</a>
-                    </div>
-                    <div class="mt-2">
-                        <a href="mailto:<?php echo htmlspecialchars($tutor['email']); ?>" class="btn custom-btn">Contact</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <!-- Footer -->
+            <div class="latest-podcast-section section-padding" id="section_2">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12 col-12">
+                            <div class="section-title-wrap mb-5">
+                                <h4 class="section-title">Share Your Experience</h4>
+                            </div>
+                        </div>
+                        </div>
+                        <form action="#" method="POST" class="custom-form contact-form" role="form">
 
+
+                        <div class="container">
+                            <div class="row justify-content-center">
+                        <div class="col-lg-6 col-20 mb-20 mb-lg-20">
+                            <div class="custom-block custom-block-full">
+                                <div class="custom-block-image-wrap">
+                                    <div class="feedback-form">
+                                        
+                                        
+                                    <div class="rating-stars-container">
+                                        <input type="radio" id="star1" name="rating" value="5">
+                                        <label class="star" for="star1"><i class="fas fa-star"></i></label>
+                                        <input type="radio" id="star2" name="rating" value="4">
+                                        <label class="star" for="star2"><i class="fas fa-star"></i></label>
+                                        <input type="radio" id="star3" name="rating" value="3">
+                                        <label class="star" for="star3"><i class="fas fa-star"></i></label>
+                                        <input type="radio" id="star4" name="rating" value="2">
+                                        <label class="star" for="star4"><i class="fas fa-star"></i></label>
+                                        <input type="radio" id="star5" name="rating" value="1">
+                                        <label class="star" for="star5"><i class="fas fa-star"></i></label>
+                                    </div>
+                                    
+                                    
+                                    
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-12">
+                                                    <div class="form-floating">                                                        
+                                                    </div>
+                                                </div>
+                    
+                                                  
+                                                <div class="center">
+                                                    <h5>we highly value your feedback!</h5>
+                                                  </div>
+                                                  
+
+
+                                                  <div class="form-floating">
+                                                    <textarea class="form-control" id="message" name="message" placeholder="Describe message here"></textarea>
+                                                    <label for="message">Write Your Review Here...</label>
+                                                </div>
+                                                
+                                            </div>
+        
+                                            <div class="col-lg-4 col-12 mx-auto">
+                                                <button type="submit" class="form-control">Submit</button>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                   
+                                    </form>
+                                </div>
+                            </div>
+
+                    
+            </main>
+            
     <footer class="site-footer">   
         <div class="container">
             <div class="row">
@@ -230,22 +238,29 @@
             <div class="row align-items-center">
     
                 <div class="col-lg-2 col-md-3 col-12">
-                    <a class="navbar-brand" href="TutotHomepage.html">
+                    <a class="navbar-brand" href="LearnerHomepage.html">
                         <img src="../public/images/logo.png" class="logo-image img-fluid" alt="Tutorverse logo">
                     </a>
                 </div>
     
                 <div class="col-lg-3 col-12">
                     <p class="copyright-text mb-0">Copyright © 2024 Tutorverse 
-                        <?php 
-                            $firstRow = $rows[0];
-                            echo '<span>' . htmlspecialchars($firstRow['version']) . '</span>';
-                        ?>
+                            <?php 
+                                $firstRow = $rows[0];
+                                echo '<span>' . htmlspecialchars($firstRow['version']) . '</span>';
+                            ?>
                     </p>
                 </div>
             </div>
         </div>
     </footer>
 
-</body>
+    
+    
+
+
+
+
+
+    </body>
 </html>

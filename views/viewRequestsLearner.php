@@ -24,6 +24,49 @@
         $Lreq = [];
     }
 
+    try {
+        $stmt = $pdo->prepare("SELECT t.*, r.* FROM tutor t INNER JOIN request r ON t.email = r.Temail WHERE status = 'Accepted' AND r.Lemail = ?");
+        $stmt->execute([$_SESSION['user_email']]);
+        $acceptedReqs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (Exception $e) {
+        echo "Database error: " . $e->getMessage();
+        $Lreq = [];
+    }
+
+    try {
+        $stmt = $pdo->prepare("SELECT t.*, r.* FROM tutor t INNER JOIN request r ON t.email = r.Temail WHERE status = 'Rejected' AND r.Lemail = ?");
+        $stmt->execute([$_SESSION['user_email']]);
+        $rejectedReqs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (Exception $e) {
+        echo "Database error: " . $e->getMessage();
+        $Lreq = [];
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] == 'delete') {
+
+        $postReqID = $_POST['reqID'];
+        // echo "Delete triggered";
+        try {
+            // DELETE FROM users WHERE email = :email
+            $stmt = $pdo->prepare("DELETE FROM postrequest WHERE postReqID = :postReqID");
+            $stmt->execute([
+                ':postReqID' => $postReqID
+            ]);
+
+            $success = "Request deleted successfully!";
+
+            // Redirect to the same page to refresh and show the success message
+            header('Location: ../public/index.php');
+            exit();
+
+        } catch(Exception $e) {
+            $error = "Error deleting profile: " . $e->getMessage();
+        }
+    }
+
+
 ?>
 <!-- HTML Code -->
 <!doctype html>
@@ -316,6 +359,9 @@
                         <div class="container">
                             <div class="row">
                                 <?php foreach ($Reqtutors as $Reqtutor): ?>
+                                    <form action="" method="POST">
+
+                                    
                                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                                         <div class="custom-block d-flex">
                                             <div class="">
@@ -333,9 +379,9 @@
                                                     <a href="editRequestsLearner.php?req_id=<?php echo urlencode($Reqtutor['postReqID']); ?>" class="btn custom-btn customedit-btn" style="margin:1px;">
                                                         Edit
                                                     </a> 
-                                                    <a href="#" class="btn custom-btn customreject-btn" style="margin:1px;">
+                                                    <button type="submit" name="action" value="delete" class="btn custom-btn customreject-btn" style="margin:1px;">
                                                         Delete
-                                                    </a>
+                                                    </button>
                                                 </div>
                                             </div>
 
@@ -350,6 +396,7 @@
                                                 <div class="profile-block d-flex">
                                                     <p class="namebesideflag"><?php echo htmlspecialchars($Reqtutor['Fname']); ?> &nbsp; <?php echo htmlspecialchars($Reqtutor['Lname']); ?></p>
                                                 </div>
+                                                <span><input type="text" name="reqID" value="<?php echo htmlspecialchars($Reqtutor['postReqID']); ?>" hidden></span>
                                                 <p class="mb-0 languagetext">Language: <?php echo htmlspecialchars($Reqtutor['language']); ?></p>
                                                 <p class="mb-0 smallfont"> Date: <?php echo htmlspecialchars($Reqtutor['date']); ?> <br> Time: <?php echo htmlspecialchars($Reqtutor['Stime']); ?> <br> Proficiency: <?php echo htmlspecialchars($Reqtutor['Lproficiency']); ?><br> <i class="bi-clock-fill custom-icon"></i> 60 Minutes<br>status:<a class="custompending-btn accrejtag">
                                                     Pending
@@ -358,6 +405,7 @@
                                                 
                                         </div>
                                     </div>
+                                    </form>
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -372,7 +420,7 @@
                            
                         </div>
 
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                             <div class="custom-block d-flex">
                                 <div class="">
                                     <div class="custom-block-icon-wrap">
@@ -448,6 +496,61 @@
                                     </div>
                                 
                             </div>
+                        </div> -->
+                        <div class="row">
+                        <?php foreach ($acceptedReqs as $acceptedReq): ?>
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                    <div class="custom-block d-flex">
+                                        <div class="">
+                                            <div class="custom-block-icon-wrap">
+                                                <div class="section-overlay"></div>
+                                                <a href="detail-page.html" class="custom-block-image-wrap"></a>
+                                                    <?php if (isset($acceptedReq['profilePic']) && $acceptedReq['profilePic']): ?>
+                                                        <img src="data:image/jpeg;base64,<?php echo base64_encode($acceptedReq['profilePic']); ?>" class="custom-block-image img-fluid" alt="Profile Picture">
+                                                    <?php else: ?>
+                                                        <img src="../public/images/profilepic2.jpg" class="custom-block-image img-fluid" alt="Default Profile Picture">
+                                                    <?php endif; ?>
+        
+                                                    <!-- <a href="#" class="custom-block-icon">
+                                                        <i class="bi-play-fill"></i>
+                                                    </a> -->
+                                                
+                                            </div>
+        
+                                            <div class="mt-2">
+                                                <a href="mailto:<?php echo htmlspecialchars($acceptedReq['Temail']); ?>" class="btn custom-btn " style="margin-left: 7px">
+                                                    Contact
+                                                </a>
+                                            </div>
+                                        </div>
+        
+                                        <div class="custom-block-info">
+                                            <div class="custom-block-top d-flex mb-1">
+                                                <small>
+                                                <i class="bi-clock-fill custom-icon "></i> 60 Minutes
+                                            </small>
+                                            </div>
+                                            <div class="custom-block-top d-flex mb-1">
+                                                
+        
+                                            </div>
+        
+                                            <div class="profile-block d-flex">
+        
+                                                <p class="namebesideflag"><?php echo htmlspecialchars($acceptedReq['Fname']); ?> &nbsp; <?php echo htmlspecialchars($acceptedReq['Lname']); ?></p>
+                                            </div>
+                                            <p class="mb-0 languagetext">Language: <?php echo htmlspecialchars($acceptedReq['language']); ?></p>
+                                            <p class="mb-0 smallfont">Date: <?php echo htmlspecialchars($acceptedReq['date']); ?> <br> Time: <?php echo htmlspecialchars($acceptedReq['duration']); ?>
+                                            <!-- <br> Proficiency: <?php echo htmlspecialchars($acceptedReq['Lproficiency']); ?> -->
+                                            <br> 
+                                            status: <a class="customaccept-btn accrejtag">
+                                                Accepted
+                                            </a></p>
+        
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
                         </div>
 
 
@@ -461,7 +564,7 @@
                         </div>
 
 
-                            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                                 <div class="custom-block d-flex">
                                     <div class="">
                                         <div class="custom-block-icon-wrap">
@@ -471,7 +574,6 @@
                                                 <div class="custom-block-icon-wrap">
                                             
                                                     <a class="custom-block-image-wrap">
-                                                        <!--img-fluid-->
                                                         <img src="../public/images/profilepic2.jpg" class="custom-block-image2  img-fluid" alt="">
         
                                                     </a>
@@ -516,7 +618,6 @@
                                                 <div class="custom-block-icon-wrap">
                                             
                                                     <a class="custom-block-image-wrap">
-                                                        <!--img-fluid-->
                                                         <img src="../public/images/Camila.webp" class="custom-block-image2  img-fluid" alt="">
         
                                                     </a>
@@ -550,6 +651,62 @@
     
                                     </div>
                                 </div>
+                            </div> -->
+
+                            <div class="row">
+                                <?php foreach ($rejectedReqs as $rejectedReq): ?>
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                    <div class="custom-block d-flex">
+                                        <div class="">
+                                            <div class="custom-block-icon-wrap">
+                                                <div class="section-overlay"></div>
+                                                <a href="detail-page.html" class="custom-block-image-wrap"></a>
+                                                    <?php if (isset($rejectedReq['profilePic']) && $rejectedReq['profilePic']): ?>
+                                                        <img src="data:image/jpeg;base64,<?php echo base64_encode($rejectedReq['profilePic']); ?>" class="custom-block-image img-fluid" alt="Profile Picture">
+                                                    <?php else: ?>
+                                                        <img src="../public/images/profilepic2.jpg" class="custom-block-image img-fluid" alt="Default Profile Picture">
+                                                    <?php endif; ?>
+        
+                                                    <!-- <a href="#" class="custom-block-icon">
+                                                        <i class="bi-play-fill"></i>
+                                                    </a> -->
+                                                
+                                            </div>
+        
+                                            <div class="mt-2">
+                                                <a href="mailto:<?php echo htmlspecialchars($rejectedReq['Temail']); ?>" class="btn custom-btn " style="margin-left: 7px">
+                                                    Contact
+                                                </a>
+                                            </div>
+                                        </div>
+        
+                                        <div class="custom-block-info">
+                                            <div class="custom-block-top d-flex mb-1">
+                                                <small>
+                                                <i class="bi-clock-fill custom-icon "></i> 60 Minutes
+                                            </small>
+                                            </div>
+                                            <div class="custom-block-top d-flex mb-1">
+                                                
+        
+                                            </div>
+        
+                                            <div class="profile-block d-flex">
+        
+                                                <p class="namebesideflag"><?php echo htmlspecialchars($rejectedReq['Fname']); ?> &nbsp; <?php echo htmlspecialchars($rejectedReq['Lname']); ?></p>
+                                            </div>
+                                            <p class="mb-0 languagetext">Language: <?php echo htmlspecialchars($rejectedReq['language']); ?></p>
+                                            <p class="mb-0 smallfont">Date: <?php echo htmlspecialchars($rejectedReq['date']); ?> <br> Time: <?php echo htmlspecialchars($rejectedReq['duration']); ?>
+                                            <!-- <br> Proficiency: <?php echo htmlspecialchars($rejectedReq['Lproficiency']); ?> -->
+                                            <br> 
+                                            status: <a class="customreject-btn accrejtag">
+                                                Rejected
+                                            </a></p>
+        
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
                             </div>
                            
 

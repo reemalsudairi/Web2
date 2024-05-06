@@ -13,13 +13,27 @@
         $rows = [];
     }
 
+    if (isset($_GET['tutor_id'])) {
+        $tutorId = $_GET['tutor_id'];
+    
+        // Prepare a statement to prevent SQL injection
+        $stmt = $pdo->prepare("SELECT * FROM tutor WHERE email = ?");
+        $stmt->execute([$tutorId]); 
+        $tutor = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$tutor) {
+            echo "No details found for the selected tutor.";
+        }
+    } else {
+        echo "No tutor selected.";
+    }
+
     $stmt = $pdo->prepare("SELECT l.*, r.* FROM review r INNER JOIN learner l ON r.Lemail = l.email WHERE Temail = ?");
-    $stmt->execute([$_SESSION['user_email']]); 
+    $stmt->execute([$tutorId]); 
     $ratings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $stmt2 = $pdo->prepare("SELECT AVG(rating) AS averageRating FROM review WHERE Temail = ?");
     // Execute the query with the bound parameter
-    $stmt2->execute([$_SESSION['user_email']]);
+    $stmt2->execute([$tutorId]);
         
     // Fetch the result
     $avgrating = $stmt2->fetch(PDO::FETCH_ASSOC);
@@ -57,7 +71,7 @@
     }
 
 ?>
-<!-- HTML Code -->
+<!-- HTML Code  -->
 <!doctype html>
 <html lang="en">
     <head> <!--هذي الي عدلتها-->
@@ -67,7 +81,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title> Tutorverse - My Reviews</title>
+        <title> Tutorverse - Reviews</title>
 
         <!-- CSS FILES -->        
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -89,7 +103,6 @@
         <link rel="icon" type="img/png" href="../public/images/logo.png">
 
     </head>
-
     <style>
         .review-container {
             width: 80%;
@@ -103,14 +116,13 @@
             text-align: center;
         }
     </style>
-
     <body>
 
         <main>
 
             <nav class="navbar navbar-expand-lg">
                 <div class="container">
-                    <a class="navbar-brand me-lg-5 me-0" href="tutorHomePage.php">
+                    <a class="navbar-brand me-lg-5 me-0" href="learnerHomePage.php">
                         <img src="../public/images/logotuterverse.png" class="logo-image img-fluid" alt="Tutorverse logo">
                     </a>
                     
@@ -122,7 +134,7 @@
                         <ul class="navbar-nav ms-lg-auto">
 
                             <li class="nav-item">
-                                <a class="nav-link " href="tutorHomePage.php">Home</a>
+                                <a class="nav-link " href="learnerHomePage.php">Home</a>
                             </li><!--لينك صفحة الهوم-->
 
                             <li class="nav-item dropdown">
@@ -138,9 +150,8 @@
                                     <img src="../public/images/profilePic.png"  class="logo-image img-fluid" alt="Photo"> 
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-light" >
-                                    <li><a class="dropdown-item" href="tutorViewProfile.php">View Profile</a></li>
-                                    <li><a class="dropdown-item" href="viewTutorRequests.php">View Requests</a></li>
-                                    <li><a class="dropdown-item" href="viewTutorReviews.php">View Reviews</a></li>
+                                    <li><a class="dropdown-item" href="learnerViewProfile.php">View Profile</a></li>
+                                    <li><a class="dropdown-item" href="viewRequestsLearner.php">View Requests</a></li>
                                     <li><a class="dropdown-item" href="../public/index.php">Sign out</a></li>
                                 </ul>
                             </li>
@@ -165,7 +176,7 @@
                 </div>
             </header>
             <div class="latest-podcast-section section-padding" id="section_2">
-                
+
             <div class="container">
                 <div class="overall-rating ">
                     <h4 class='section-title'>Overall Rating</h4>
@@ -180,12 +191,12 @@
                     ?> <?php echo htmlspecialchars($averageRating); ?> stars</p></div>
                 </div>
             </div>
-            <br>
-            <div class="container">
+
+                <div class="container">
                     <div class="row align-items-center">
                         <div class="col-lg-12 col-12">
                             <div class="section-title-wrap mb-5">
-                                <h4 class="section-title"> My Reviews</h4>
+                                <h4 class="section-title"> Reviews</h4>
                             </div>
                         
                                 
@@ -233,9 +244,9 @@
 
 
 </div>  
-</div>
+</div> -->
 
-<div class="row">
+<!-- <div class="row">
     <div class="col-lg-20 col-md-10 col-sm-12 mb-4">
         <div class="custom-block d-flex">
             <div class="">
@@ -255,7 +266,7 @@
                         
 
                         <p class="namebesideflag">Fatima</p>
-                        <div class="ratingrev">★★★★☆ </div>
+                        <div class="ratingrev">★★★★☆</div>
 
                         
 
@@ -277,9 +288,9 @@
         
     
 
-</div>  
-</div>
-<div class="row">
+</div>   
+</div>-->
+<!-- <div class="row">
     <div class="col-lg-20 col-md-10 col-sm-12 mb-4">
         <div class="custom-block d-flex">
             <div class="">
@@ -322,9 +333,9 @@
     
 
 </div>  
-</div>
+</div> -->
 
-<div class="row">
+<!-- <div class="row">
     <div class="col-lg-20 col-md-10 col-sm-12 mb-4">
         <div class="custom-block d-flex">
             <div class="">
@@ -367,8 +378,8 @@
     
 
 </div>  
-</div>
-<div class="row">
+</div> -->
+<!-- <div class="row">
     <div class="col-lg-20 col-md-10 col-sm-12 mb-4">
         <div class="custom-block d-flex">
             <div class="">
@@ -406,9 +417,8 @@
             </div>
 
         </div>
-        </div> -->
+        </div>-->
 
-        </div>
         <div class="row">
         <?php foreach ($ratings as $rating): ?>
         <div class="col-lg-20 col-md-10 col-sm-12 mb-4">
@@ -467,7 +477,7 @@
         </div>
                     </div>
                 </div>
-                </div>
+                </div> 
     
 
         </main>
@@ -502,7 +512,12 @@
             </div>
 
             <div class="col-lg-3 col-12">
-                <p class="copyright-text mb-0">Copyright © 2024 Tutorverse </p>
+                <p class="copyright-text mb-0">Copyright © 2024 Tutorverse 
+                        <?php 
+                            $firstRow = $rows[0];
+                            echo '<span>' . htmlspecialchars($firstRow['version']) . '</span>';
+                        ?>
+                </p>
             </div>
         </div>
     </div>

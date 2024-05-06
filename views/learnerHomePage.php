@@ -14,11 +14,21 @@
     }
 
     try {
-        $stmt = $pdo->query("SELECT Fname, Lname, email, price, bio, profilepic FROM tutor"); // Adjust according to your database schema
+        $stmt = $pdo->query("SELECT t.Fname, t.Lname, t.email, t.price, t.bio, t.profilepic, AVG(r.rating) AS averageRating FROM  tutor t LEFT JOIN review r ON t.email = r.Temail GROUP BY t.Fname, t.Lname, t.email, t.price, t.bio, t.profilepic;"); // Adjust according to your database schema
         $tutors = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
         echo "Database error: " . $e->getMessage();
         $tutors = [];
+    }
+
+    try {
+        $stmt = $pdo->prepare("SELECT t.*, s.* FROM tutor t INNER JOIN session s ON t.email = s.Temail WHERE status = 'Accepted' AND s.Lemail = ?");
+        $stmt->execute([$_SESSION['user_email']]);
+        $sessions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (Exception $e) {
+        echo "Database error: " . $e->getMessage();
+        $Lreq = [];
     }
 ?>
 <!-- HTML code -->
@@ -135,7 +145,7 @@
                                 <h4 class="section-title">My Sessions</h4>
                             </div>
                             <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            <!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                                 <div class="custom-block d-flex">
                                     <div class="">
                                         <div class="custom-block-icon-wrap">
@@ -254,7 +264,53 @@
                             <a href="Learnersessionpage.html" class="btn custom-btn">
                                 View more
                             </a>
-                        </div>  
+                        </div>   -->
+
+                        <?php foreach ($sessions as $session): ?>
+                                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                        <div class="custom-block d-flex">
+                                            <div class="">
+                                                <div class="custom-block-icon-wrap">
+                                                    <div class="section-overlay"></div>
+                                                        <!-- <img src="../public/images/profilepic2.jpg" class="custom-block-image img-fluid" alt=""> -->
+                                                        <?php if (isset($session['profilePic']) && $session['profilePic']): ?>
+                                                            <img src="data:image/jpeg;base64,<?php echo base64_encode($session['profilePic']); ?>" class="custom-block-image img-fluid" alt="Profile Picture">
+                                                        <?php else: ?>
+                                                            <img src="../public/images/profilepic2.jpg" class="custom-block-image img-fluid" alt="Default Profile Picture">
+                                                        <?php endif; ?>
+                                                        <a href="#" class="custom-block-icon">
+                                                            <i class="bi-play-fill"></i>
+                                                        </a>
+                                                </div>
+            
+                                                <div class="mt-2">
+                                                    <a href="mailto:<?php echo htmlspecialchars($session['Temail']); ?>" class="btn custom-btn" style="margin-left: 7px">
+                                                        Contact
+                                                    </a>
+                                                </div>
+                                            </div>
+            
+                                            <div class="custom-block-info">
+                                                <div class="custom-block-top d-flex mb-1">
+                                                    <small class="me-4">
+                                                        <i class="bi-clock-fill custom-icon"></i>
+                                                        60 Minutes
+                                                    </small>
+            
+                                                </div>
+            
+                                                <div class="profile-block d-flex">
+            
+                                                    <p class="namebesideflag"><?php echo htmlspecialchars($session['Fname']); ?> &nbsp; <?php echo htmlspecialchars($session['Lname']); ?></p>
+                                                </div>
+                                                <p class="mb-0" style="font-size:small;"><strong>Language:  <?php echo htmlspecialchars($session['language']); ?></strong><br>Date:<?php echo htmlspecialchars($session['date']); ?> <br> Time:  <?php echo htmlspecialchars($session['duration']); ?> 
+                                                <!-- <br> Proficiency: Advanced -->
+                                            </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+
                     </div>
                 </div>  
             </div><!--نهاية السشنز-->
@@ -386,7 +442,7 @@
 
                                 <div class="profile-block d-flex">
                                     <p class="namebesideflag"><?php echo htmlspecialchars($tutor['Fname']); ?> &nbsp; <?php echo htmlspecialchars($tutor['Lname']); ?>
-                                        <!-- <a href="reviewsAsLearner.html" class="rating ratingmargin"><?php echo str_repeat('★', floor($tutor['rating'])) . str_repeat('☆', 5 - floor($tutor['rating'])) . ' ' . $tutor['rating']; ?></a> -->
+                                        <a href="postReviewLearner.php?tutor_id=<?php echo urlencode($tutor['email']); ?>" class="rating ratingmargin"> <?php echo htmlspecialchars(number_format($tutor['averageRating'] ?? 0, 1)); ?> ★ Rating</a>
                                     </p>
                                 </div>
                                 <span class="bi-cash-coin purple"> &#36; <?php echo htmlspecialchars($tutor['price']); ?>/hr</span>
