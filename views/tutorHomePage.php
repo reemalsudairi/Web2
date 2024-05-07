@@ -417,11 +417,11 @@
                                 <?php endforeach; ?>
                             </div>
                         </div> 
-                        <!-- <div class="col-lg-2 col-12 ms-auto">
-                            <a href="TutorSession.html" class="btn custom-btn">
+                        <div class="col-lg-2 col-12 ms-auto">
+                            <a href="tutorSession.php" class="btn custom-btn">
                                 View more
                             </a>
-                        </div>   -->
+                        </div>  
                     </div>
                 </div>  
             </div>
@@ -623,7 +623,7 @@
                                             <div class="custom-block-top d-flex mb-1">
                                                 <small class="me-4">
                                                     <i class="bi-hourglass-bottom custom-icon"></i>
-                                                    60 Minutes Remaining
+                                                    <?php echo htmlspecialchars($ReqLearner['requestDuration']); ?> Minutes Remaining
                                                 </small>
         
                                             </div>

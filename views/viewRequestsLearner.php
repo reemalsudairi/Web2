@@ -398,7 +398,7 @@
                                                 </div>
                                                 <span><input type="text" name="reqID" value="<?php echo htmlspecialchars($Reqtutor['postReqID']); ?>" hidden></span>
                                                 <p class="mb-0 languagetext">Language: <?php echo htmlspecialchars($Reqtutor['language']); ?></p>
-                                                <p class="mb-0 smallfont"> Date: <?php echo htmlspecialchars($Reqtutor['date']); ?> <br> Time: <?php echo htmlspecialchars($Reqtutor['Stime']); ?> <br> Proficiency: <?php echo htmlspecialchars($Reqtutor['Lproficiency']); ?><br> <i class="bi-clock-fill custom-icon"></i> 60 Minutes<br>status:<a class="custompending-btn accrejtag">
+                                                <p class="mb-0 smallfont"> Date: <?php echo htmlspecialchars($Reqtutor['date']); ?> <br> Time: <?php echo htmlspecialchars($Reqtutor['Stime']); ?> <br> Proficiency: <?php echo htmlspecialchars($Reqtutor['Lproficiency']); ?><br> <i class="bi-clock-fill custom-icon"></i> <?php echo htmlspecialchars($Reqtutor['requestDuration']); ?> Minutes<br>status:<a class="custompending-btn accrejtag">
                                                     Pending
                                                 </a></p>
                                             </div>

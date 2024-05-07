@@ -324,10 +324,15 @@
 
                     </div>
                 </div>  
-            </div><!--نهاية السشنز-->
+            </div>
+            <div class="col-lg-2 col-12 ms-auto">
+                <a href="learnerSession.php" class="btn custom-btn">
+                    View more
+                </a>
+            </div>
 
 
-            <div class="contact-section section-padding pt-0"><!--بداية السشنز-->
+            <!-- <div class="contact-section section-padding pt-0">
                 <div class="container">
                     <div class="row ">
 
@@ -343,7 +348,6 @@
                                             <div class="">
                                                 <div class="custom-block-icon-wrap">
                                                     <div class="section-overlay"></div>
-                                                        <!-- <img src="../public/images/profilepic2.jpg" class="custom-block-image img-fluid" alt=""> -->
                                                         <?php if (isset($completedSession['profilePic']) && $completedSession['profilePic']): ?>
                                                             <img src="data:image/jpeg;base64,<?php echo base64_encode($completedSession['profilePic']); ?>" class="custom-block-image img-fluid" alt="Profile Picture">
                                                         <?php else: ?>
@@ -375,7 +379,7 @@
                                                     <p class="namebesideflag"><?php echo htmlspecialchars($completedSession['Fname']); ?> &nbsp; <?php echo htmlspecialchars($completedSession['Lname']); ?></p>
                                                 </div>
                                                 <p class="mb-0" style="font-size:small;"><strong>Language:  <?php echo htmlspecialchars($completedSession['language']); ?></strong><br>Date:<?php echo htmlspecialchars($completedSession['date']); ?> <br> Time:  <?php echo htmlspecialchars($completedSession['duration']); ?> 
-                                                <!-- <br> Proficiency: Advanced -->
+                                                
                                             </p>
                                             </div>
                                         </div>
@@ -384,7 +388,7 @@
 
                     </div>
                 </div>  
-            </div>
+            </div> -->
 
                     
             <div class="contact-section section-padding pt-0" id="section_22"><!--بداية التوتر لست-->
