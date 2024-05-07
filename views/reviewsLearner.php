@@ -42,7 +42,8 @@
         $averageRating = number_format($avgrating['averageRating'], 1);  // Formats the number to one decimal place
         // echo "The average rating for $tutorId is $averageRating.";
     } else {
-        echo "No ratings found for $tutorId.";
+        // echo "No ratings found for $tutorId.";
+        $averageRating = 0;
     }
 
     function generateStarRating($rating) {
