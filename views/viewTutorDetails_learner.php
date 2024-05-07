@@ -32,7 +32,8 @@
             $averageRating = number_format($rating['averageRating'], 1);  // Formats the number to one decimal place
             // echo "The average rating for $tutorId is $averageRating.";
         } else {
-            echo "No ratings found for $tutorId.";
+            // echo "No ratings found for $tutorId.";
+            $averageRating = 0;
         }
 
         if (!$tutor) {
@@ -65,6 +66,24 @@
 
         // Return the star output along with the numerical rating
         return $output . ' ' . number_format($rating, 1);
+    }
+
+    $user_email = $_SESSION['user_email'];
+    // attempting to query the user's profile data
+    try {
+        $stmt = $pdo->prepare("SELECT Fname, Lname, email, city, location, profilepic FROM learner WHERE email = :user_email");
+        $stmt->execute(['user_email' => $user_email]);
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+    } catch(Exception $e) {
+        echo "Database error: " . $e->getMessage();
+        $user = [];
+    }
+    // Example function to determine MIME type from Base64 string
+    function getMimeType($base64String) {
+        $imageInfo = getimagesizefromstring(base64_decode($base64String));
+        return $imageInfo['mime'];
     }
 
 ?>
@@ -133,7 +152,8 @@
 
                             <li class="nav-item dropdown"> <!--صورة البروفايل-->
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLinkProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="../public/images/profilePic.png"  class="logo-image img-fluid" alt="Photo"> 
+                                <?php $mimeType = getMimeType($user['profilepic']); ?>
+                                    <img style="width:35px;height:35px;" src="data:<?php echo $mimeType; ?>;base64,<?php echo $user['profilepic']; ?>" class="logo-image custom-block-image img-fluid" alt="Profile Picture">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-light" >
                                     <li><a class="dropdown-item" href="learnerViewProfile.php">View Profile</a></li>
@@ -169,11 +189,8 @@
                 <div class="custom-block-icon-wrap">
                     <div class="custom-block-image-wrap">
                         <!-- <img src="profilepic2;" class="custom-block-image" alt="Tutor Image"> -->
-                        <?php if (isset($tutor['profilePic']) && $tutor['profilePic']): ?>
-                            <img src="data:image/jpeg;base64,<?php echo base64_encode($tutor['profilePic']); ?>" class="custom-block-image img-fluid" alt="Profile Picture">
-                        <?php else: ?>
-                            <img src="../public/images/profilepic2.jpg" class="custom-block-image img-fluid" alt="Default Profile Picture">
-                        <?php endif; ?>
+                        <?php $mimeType = getMimeType($tutor['profilepic']); ?>
+                                                    <img src="data:<?php echo $mimeType; ?>;base64,<?php echo $tutor['profilepic']; ?>" class="logo-image custom-block-image img-fluid" alt="Profile Picture">
                     </div>
                 </div>
             </div>

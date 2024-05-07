@@ -23,20 +23,23 @@
             if (isset($_FILES['profilePic']) && $_FILES['profilePic']['error'] == 0) {
                 $profilePic = $_FILES['profilePic']['tmp_name'];
                 $imageData = file_get_contents($profilePic);
+                $base64Image = base64_encode($imageData); // Convert the image to Base64
             } else {
                 // Default image if none is uploaded
-                $defaultImagePath = '../public/images/profilepic2.jpg'; // Ensure this path is correct
+                $defaultImagePath = '../public/images/profilepic2.jpg';
                 $imageData = file_get_contents($defaultImagePath);
+                $base64Image = base64_encode($imageData); // Convert the image to Base64
             }
             
-            $imageBlob = $pdo->quote($imageData); // Safe way to prepare BLOB data
+            // $imageBlob = $pdo->quote($imageData); // Safe way to prepare BLOB data
+            // echo $base64Image;
 
             // Prepare and bind
             $stmt = $pdo->prepare("INSERT INTO users (emailID, isTutor, isLearner, password) VALUES (?, ?, ?, ?)");
             $stmt->execute([$email, 1, 0, $password]);
 
             $stmt2 = $pdo->prepare("INSERT INTO tutor (Fname, Lname, age, gender, city, email, price, bio, phone, profilepic) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt2->execute([$firstname, $lastname, $age, $gender, $city, $email, $price, $bio, $phoneNumber, $imageBlob]);
+            $stmt2->execute([$firstname, $lastname, $age, $gender, $city, $email, $price, $bio, $phoneNumber, $base64Image]);
 
             $_SESSION['user_email'] = $email;
 
@@ -156,7 +159,7 @@
 
                                 <div class="custom-block custom-block-full">
                                     <div class="custom-block-image-wrap">
-                                        <form action="#" method="post" class="custom-form contact-form">
+                                    <form action="#" method="post" enctype="multipart/form-data" class="custom-form contact-form" id="myForm">
                                             <input type="file" id="upload-input" name="profilePic" accept="image/*" hidden>
                                             <label for="upload-input" id="profile-pic-container">
                                                 <img id="profile-pic" src="../public/images/profileSignup.png" alt="Profile Picture" onclick="document.getElementById('upload-input').click();">
@@ -334,6 +337,18 @@
         </body>
 
 
-
+        <script>
+            document.getElementById('upload-input').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const imgElement = document.getElementById('profile-pic');
+                        imgElement.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        </script>
 
 </html>

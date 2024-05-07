@@ -16,20 +16,22 @@
             if (isset($_FILES['profilePic']) && $_FILES['profilePic']['error'] == 0) {
                 $profilePic = $_FILES['profilePic']['tmp_name'];
                 $imageData = file_get_contents($profilePic);
+                $base64Image = base64_encode($imageData); // Convert the image to Base64
             } else {
                 // Default image if none is uploaded
                 $defaultImagePath = '../public/images/profilepic2.jpg';
                 $imageData = file_get_contents($defaultImagePath);
+                $base64Image = base64_encode($imageData); // Convert the image to Base64
             }
             
-            $imageBlob = $pdo->quote($imageData); // Safe way to prepare BLOB data
+            // $imageBlob = $pdo->quote($imageData); // Safe way to prepare BLOB data
 
             // Prepare and bind
             $stmt = $pdo->prepare("INSERT INTO users (emailID, isTutor, isLearner, password) VALUES (?, ?, ?, ?)");
             $stmt->execute([$email, 0, 1, $password]);
 
             $stmt2 = $pdo->prepare("INSERT INTO learner (Fname, Lname, email, profilepic, city, location) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt2->execute([$firstname, $lastname, $email, $imageBlob, $city, $location]);
+            $stmt2->execute([$firstname, $lastname, $email, $base64Image, $city, $location]);
 
             $_SESSION['user_email'] = $email;
 

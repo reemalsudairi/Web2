@@ -104,6 +104,12 @@
         }
     }
 
+    // Example function to determine MIME type from Base64 string
+    function getMimeType($base64String) {
+        $imageInfo = getimagesizefromstring(base64_decode($base64String));
+        return $imageInfo['mime'];
+    }
+
 ?>
 <!-- HTML Code -->
 <!doctype html>
@@ -168,7 +174,8 @@
 
                             <li class="nav-item dropdown"> <!--صورة البروفايل-->
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLinkProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="../public/images/profilePic.png"  class="logo-image img-fluid" alt="Photo"> 
+                                <?php $mimeType = getMimeType($user['profilepic']); ?>
+                                    <img style="width:35px;height:35px;" src="data:<?php echo $mimeType; ?>;base64,<?php echo $user['profilepic']; ?>" class="logo-image custom-block-image img-fluid" alt="Profile Picture">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-light" >
                                     <li><a class="dropdown-item" href="tutorViewProfile.php">View Profile</a></li>
@@ -214,11 +221,8 @@
                         <div>
                             <div class="custom-block-icon-wrap">
                                 <div class="custom-block-image-wrap">
-                                <?php if (isset($user['profilePic']) && $user['profilePic']): ?>
-                                                            <img src="data:image/jpeg;base64,<?php echo base64_encode($user['profilePic']); ?>" class="custom-block-image img-fluid" alt="Profile Picture">
-                                                        <?php else: ?>
-                                                            <img src="../public/images/profilepic2.jpg" class="custom-block-image img-fluid" alt="Default Profile Picture">
-                                                        <?php endif; ?>
+                                <?php $mimeType = getMimeType($user['profilepic']); ?>
+                                    <img src="data:<?php echo $mimeType; ?>;base64,<?php echo $user['profilepic']; ?>" class="logo-image custom-block-image img-fluid" alt="Profile Picture">
                                 </div>
                             </div>
                         </div>

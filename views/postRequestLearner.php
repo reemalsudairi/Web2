@@ -53,6 +53,24 @@
             echo "<p>Error posting request.</p>";
         }
     }
+
+    $user_email = $_SESSION['user_email'];
+    // attempting to query the user's profile data
+    try {
+        $stmt = $pdo->prepare("SELECT Fname, Lname, email, city, location, profilepic FROM learner WHERE email = :user_email");
+        $stmt->execute(['user_email' => $user_email]);
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+    } catch(Exception $e) {
+        echo "Database error: " . $e->getMessage();
+        $user = [];
+    }
+    // Example function to determine MIME type from Base64 string
+    function getMimeType($base64String) {
+        $imageInfo = getimagesizefromstring(base64_decode($base64String));
+        return $imageInfo['mime'];
+    }
     
 ?>
 <!-- HTML Code -->
@@ -118,7 +136,8 @@
 
                             <li class="nav-item dropdown"> <!--صورة البروفايل-->
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLinkProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="../public/images/profilePic.png"  class="logo-image img-fluid" alt="Photo"> 
+                                <?php $mimeType = getMimeType($user['profilepic']); ?>
+                                    <img style="width:35px;height:35px;" src="data:<?php echo $mimeType; ?>;base64,<?php echo $user['profilepic']; ?>" class="logo-image custom-block-image img-fluid" alt="Profile Picture">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-light" >
                                     <li><a class="dropdown-item" href="learnerViewProfile.php">View Profile</a></li>
