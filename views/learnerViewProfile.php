@@ -17,7 +17,7 @@
     $user_email = $_SESSION['user_email'];
     // attempting to query the user's profile data
     try {
-        $stmt = $pdo->prepare("SELECT Fname, Lname, email, city, location FROM learner WHERE email = :user_email");
+        $stmt = $pdo->prepare("SELECT Fname, Lname, email, city, location, profilepic FROM learner WHERE email = :user_email");
         $stmt->execute(['user_email' => $user_email]);
 
         $stmt2 = $pdo->prepare("SELECT password FROM users WHERE emailID = :user_email");
@@ -203,7 +203,11 @@
                         <div>
                             <div class="custom-block-icon-wrap">
                                 <div class="custom-block-image-wrap">
-                                    <img src="../public/images/rana.jpeg" class="custom-block-image" alt="">
+                                <?php if (isset($user['profilePic']) && $user['profilePic']): ?>
+                                                            <img src="data:image/jpeg;base64,<?php echo base64_encode($user['profilePic']); ?>" class="custom-block-image img-fluid" alt="Profile Picture">
+                                                        <?php else: ?>
+                                                            <img src="../public/images/profilepic2.jpg" class="custom-block-image img-fluid" alt="Default Profile Picture">
+                                                        <?php endif; ?>
                                 </div>
                             </div>
                         </div>

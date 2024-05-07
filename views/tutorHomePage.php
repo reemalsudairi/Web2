@@ -591,7 +591,7 @@
                             </div>   -->
                         
                         <div class="row">
-                            <?php foreach ($ReqLearners as $ReqLearner): ?>
+                            <!-- <?php foreach ($ReqLearners as $ReqLearner): ?>
                             <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                                     <div class="custom-block d-flex">
                                         <form action="" method="post">
@@ -643,7 +643,70 @@
                                         </form>
                                     </div>
                                 </div>
-                            <?php endforeach; ?>
+                            <?php endforeach; ?> -->
+                            <?php 
+                                $counter = 0; // Initialize the counter
+                                foreach ($ReqLearners as $ReqLearner):
+                                    if ($counter >= 3) break; // Break the loop after 3 iterations
+                                ?>
+                                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                    <div class="custom-block d-flex">
+                                        <form action="" method="post">
+                                        <div class="">
+                                            <div class="custom-block-icon-wrap">
+                                                <a class="custom-block-image-wrap">
+                                                <?php if (isset($ReqLearner['profilePic']) && $ReqLearner['profilePic']): ?>
+                                                    <img src="data:image/jpeg;base64,<?php echo base64_encode($ReqLearner['profilePic']); ?>" class="custom-block-image img-fluid" alt="Profile Picture">
+                                                <?php else: ?>
+                                                    <img src="../public/images/profilepic2.jpg" class="custom-block-image img-fluid" alt="Default Profile Picture">
+                                                <?php endif; ?>
+                                                </a>
+                                            </div>
+
+                                            <div class="mt-2 buttonsbesideeachother">
+                                                <button type ="submit" name="action" value="save" class="btn custom-btn customaccept-btn" style="margin:1px;" >
+                                                    Accept 
+                                                </button> 
+
+                                                <button type="submit" name="action" value="delete" class="btn custom-btn customreject-btn" style="margin:1px;">
+                                                    Reject
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="custom-block-info">
+                                            <div class="custom-block-top d-flex mb-1">
+                                                <small class="me-4">
+                                                    <i class="bi-hourglass-bottom custom-icon"></i>
+                                                    <?php echo htmlspecialchars($ReqLearner['requestDuration']); ?> Minutes Remaining
+                                                </small>
+                                            </div>
+
+                                            <div class="profile-block d-flex">
+                                                <p class="namebesideflag"><?php echo htmlspecialchars($ReqLearner['Fname']); ?> &nbsp; <?php echo htmlspecialchars($ReqLearner['Lname']); ?></p>
+                                                <input type="text" name="learnerMail" value="<?php echo htmlspecialchars($ReqLearner['email']); ?>" hidden>
+                                                <input type="text" name="reqID" value="<?php echo htmlspecialchars($ReqLearner['postReqID']); ?>" hidden>
+                                            </div>
+                                            <p class="mb-0 languagetext">Language: <?php echo htmlspecialchars($ReqLearner['language']); ?></p>
+                                            <p class="mb-0 smallfont">Date: <?php echo htmlspecialchars($ReqLearner['date']); ?><br> Time: <?php echo htmlspecialchars($ReqLearner['requestDuration']); ?><br> Proficiency: <?php echo htmlspecialchars($ReqLearner['Lproficiency']); ?><br> <i class="bi-clock-fill custom-icon "></i> <?php echo htmlspecialchars($ReqLearner['Stime']); ?>  Minutes<br> status: <a class="custompending-btn accrejtag">
+                                                Pending
+                                            </a></p>
+
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <?php 
+                                $counter++; // Increment the counter
+                                endforeach; 
+                                ?>
+
+                        </div>
+                        <div class="p-2"></div>
+                        <div class="col-lg-2 col-12 ms-auto">
+                                <a href="viewTutorRequests.php" class="btn custom-btn">
+                                    View more
+                                </a>
                         </div>
                         
                         

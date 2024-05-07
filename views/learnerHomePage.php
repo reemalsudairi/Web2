@@ -505,7 +505,7 @@
                     </div> -->
 
                     <div class="row">
-                    <?php foreach ($tutors as $tutor): ?>
+                    <!-- <?php foreach ($tutors as $tutor): ?>
                         <div class="col-lg-3 col-12 mb-4 mb-lg-0">
                             <div class="custom-block custom-block-full">
                                 <div class="custom-block-image-wrap">
@@ -518,7 +518,7 @@
 
                                 <div class="profile-block d-flex">
                                     <p class="namebesideflag"><?php echo htmlspecialchars($tutor['Fname']); ?> &nbsp; <?php echo htmlspecialchars($tutor['Lname']); ?>
-                                        <!--  -->
+                                        
                                     <a href="reviewsLearner.php?tutor_id=<?php echo urlencode($tutor['email']); ?>" class="rating ratingmargin"> <?php echo htmlspecialchars(number_format($tutor['averageRating'] ?? 0, 1)); ?> ★ Rating</a>
                                     </p>
                                 </div>
@@ -536,8 +536,57 @@
                                 </div>
                             </div>
                         </div>
-                        <?php endforeach; ?>
+                        <?php endforeach; ?> -->
+                        <?php 
+                            $counter = 0; // Initialize the counter
+                            foreach ($tutors as $tutor):
+                                if ($counter >= 4) break; // Break the loop after 4 iterations
+                            ?>
+                            <div class="col-lg-3 col-12 mb-4 mb-lg-0">
+                                <div class="custom-block custom-block-full">
+                                    <div class="custom-block-image-wrap">
+                                        <?php if (isset($tutor['profilePic']) && $tutor['profilePic']): ?>
+                                            <img src="data:image/jpeg;base64,<?php echo base64_encode($tutor['profilePic']); ?>" class="custom-block-image img-fluid" alt="Profile Picture">
+                                        <?php else: ?>
+                                            <img src="../public/images/profilepic2.jpg" class="custom-block-image img-fluid" alt="Default Profile Picture">
+                                        <?php endif; ?>
+                                    </div>
+
+                                    <div class="profile-block d-flex">
+                                        <p class="namebesideflag"><?php echo htmlspecialchars($tutor['Fname']); ?> &nbsp; <?php echo htmlspecialchars($tutor['Lname']); ?>
+                                        <a href="reviewsLearner.php?tutor_id=<?php echo urlencode($tutor['email']); ?>" class="rating ratingmargin"><?php echo htmlspecialchars(number_format($tutor['averageRating'] ?? 0, 1)); ?> ★ Rating</a>
+                                        </p>
+                                    </div>
+                                    <span class="bi-cash-coin purple">&#36; <?php echo htmlspecialchars($tutor['price']); ?>/hr</span>
+
+                                    <div class="mt-2">
+                                        <a href="viewTutorDetails_learner.php?tutor_id=<?php echo urlencode($tutor['email']); ?>" class="btn custom-btn">View Details</a>
+                                    </div>
+                                    <div class="mt-2">
+                                        <a href="postRequestLearner.php?tutor_id=<?php echo urlencode($tutor['email']); ?>" class="btn custom-btn">Post request</a>
+                                    </div>
+
+                                    <div class="mt-2">
+                                        <a href="mailto:<?php echo htmlspecialchars($tutor['email']); ?>" class="btn custom-btn">Contact</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php 
+                            $counter++; // Increment the counter
+                            endforeach; 
+                            ?>
+
                     </div>
+                    <div class="p-2"></div>
+                    <div class="row">
+
+                        <div class="col-lg-2 col-12 ms-auto">
+                            <a href="learnerTutorList.php" class="btn custom-btn">
+                                View more
+                            </a>
+                        </div>
+                    </div>
+                    
 
                 </div>
             </div>
