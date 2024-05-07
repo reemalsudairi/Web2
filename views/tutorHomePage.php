@@ -88,7 +88,6 @@
         }
     }
     else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] == 'delete') {
-        echo "Delete triggered";
         // Handle form submission
         $reqID = $_POST['reqID'];
         $learnerMail = $_POST['learnerMail'];
@@ -125,6 +124,10 @@
             } else {
                 $success = "No post request found with the specified ID.";
             }
+            
+            // Redirect to the same page to refresh and show the success message
+            header('Location: '.$_SERVER['PHP_SELF']);
+            exit();
 
         } catch(Exception $e) {
             $error = "Error updating request: " . $e->getMessage();
